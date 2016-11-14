@@ -134,6 +134,8 @@ void JouerUnTourR7(ModeTrace MT)
       /* On sait qu'on ne peut pas jouer le rebut et que le talon n'est pas vide */
       /* Jouer le talon */
       RetournerCarteSur(&TalonR7);
+	  if (MT == AvecTrace)
+	  AfficherR7();						/*Ajout d'un AffichagerR7 pour voir la carte courante retournée sur le talon*/
       JouerTasR7(&TalonR7, &OK);
       if (!OK)
 	      DeplacerHautSur(&TalonR7, &RebutR7);
@@ -149,11 +151,12 @@ void JouerUnTourR7(ModeTrace MT)
   while (!TasVide(TalonR7));
 }
 
-void JouerUneR7(int NMaxT, ModeTrace MT)
+void JouerUneR7(int NMaxT, ModeTrace MT, int* cptrTour, int* cptrGagne) 
+/* Ajout de deux pointeurs pour compter le nombre de tour des parties gagnées 
+et le nombre total de parties gagnées, respectivement*/
 {
   JouerUnTourR7(MT);
   /* Jeu d'au plus NMaxT tours */
-
   while (!(TasVide(RebutR7)) && (NumTourR7 < NMaxT))  
     {
       RetournerTas(&RebutR7);
@@ -161,31 +164,66 @@ void JouerUneR7(int NMaxT, ModeTrace MT)
       JouerUnTourR7(MT);
       NumTourR7 = NumTourR7 + 1;
     }
-  if (TasVide(RebutR7))
-    {
-      printf("Vous avez gagné en %d tours !\n",NumTourR7);
-    }
-  else
-    {
-      printf("Vous avez perdu !\n");
-    }
+	/* Ajout de la condition pour afficher le résultats de la partie si on est en mode AvecTrace */
+	if (MT == AvecTrace){
+  		if (TasVide(RebutR7))
+    		{
+    	 	 printf("Vous avez gagne en %d tours !\n",NumTourR7);
+			 
+    		}
+  		else
+    		{
+    		  printf("Vous avez perdu !\n");
+    		}
+		}
+	/* Cas où on est en mode SansTrace */
+	else {
+  		if (TasVide(RebutR7))
+    		{
+			 *cptrTour += NumTourR7; /* Nombre de tour pour une partie gagnées */
+			 *cptrGagne += 1; /* Incrementation du nombre de parties gagneés */
+    		}	
+	}
 }
 		
 void ObserverR7(int NP, int NMaxT)
 {
   int i;
-
+  int cptrTour = 0; /* Variable pour le nombre de donne par parties gagnées */
+  int cptrGagne = 0; /* Variable pour le nombre de parties gagnées */
   CreerTableauInitialR7();
-  JouerUneR7(NMaxT, AvecTrace);
+  JouerUneR7(NMaxT, AvecTrace, &cptrTour, &cptrGagne);
   for (i = 1; i <= NP-1; i++)
     {
       ReformerTableauInitialR7();
-      JouerUneR7(NMaxT, AvecTrace);
+      JouerUneR7(NMaxT, AvecTrace, &cptrTour, &cptrGagne);
     }
 }
 
 void AnalyserR7(int NP, int NMaxT)
 {
-  /* A COMPLETER */
+  int i;
+  int cptrTour = 0; /* Variable pour le nombre de donne par parties gagnées */
+  int cptrGagne = 0; /* Variable pour le nombre de parties gagnées */
+  float cT; /* Variable recupérant le parsing de cptrTour en float */
+  float cG; /* Variable recupérant le parsing de cptrGagne en float */
+
+  CreerTableauInitialR7();
+  JouerUneR7(NMaxT, SansTrace, &cptrTour, &cptrGagne);
+  for (i = 1; i <= NP-1; i++)
+    {
+      ReformerTableauInitialR7();
+      JouerUneR7(NMaxT, SansTrace, &cptrTour, &cptrGagne);
+    }
+
+  cT = (float) cptrTour;
+  cG = (float) cptrGagne;
+
+  /* Affichage des différentes statistiques de la partie */	
+  printf("Sur %d partie(s), vous en avez gagne %d\n", NP, cptrGagne);
+  printf("Soit un pourcentage moyen de %d %% de victoire\n", cptrGagne * 100 / NP);
+  if (cG!=0) 
+  printf("Avec un nombre moyen de tour de %f par victoire\n", cT/cG);
+	 
 }
 	
