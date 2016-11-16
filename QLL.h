@@ -8,5 +8,5 @@
 #include "AfficherTas.h"
 
 void ObserverQLL(int, int);
-void AnalyserQLL(int, int);
+int AnalyserQLL(int, int);
 	

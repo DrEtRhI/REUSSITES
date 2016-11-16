@@ -11,6 +11,6 @@
  * -------------------------------------------------------------------
 */
 
-typedef enum {SIMULQLL, ANALYSEQLL, FIN}     CodeCommande ;
+typedef enum {SIMULQLL, ANALYSEQLL, ANALYSESERIEQLL, FIN}     CodeCommande ;
 
 void SaisirCommande (CodeCommande *);

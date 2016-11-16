@@ -17,15 +17,17 @@
 #define         Invite                   "Votre Choix (? pour liste des commandes) : " 
 #define         TexteSimulationQLL        '1' 
 #define         TexteAnalyseQLL           '2' 
-#define         TexteFin                 'F' 
-#define         TexteAide                '?' 
+#define         TexteFin                  'F' 
+#define         TexteAide                 '?' 
+
+#define         TexteAnalyseSerieQLL           '3' 
 
 /* -------------------------------------------------------------------
  * CodeCommande   : le type [SIMULQLL, ANALYSEQLL, FIN]
  * -------------------------------------------------------------------
 */
 
-typedef enum {SIMULQLL, ANALYSEQLL, FIN}     CodeCommande ;
+typedef enum {SIMULQLL, ANALYSEQLL, ANALYSESERIEQLL,FIN}     CodeCommande ;
 
 /* -------------------------------------------------------------------
  *      INTERACTION
@@ -46,6 +48,7 @@ int EstTexteCommande (char c)
   return
     ((c == TexteSimulationQLL) ||
      (c == TexteAnalyseQLL) ||
+		 (c == TexteAnalyseSerieQLL) ||
      (c == TexteFin)) ;
 }
 
@@ -54,6 +57,7 @@ void EcrireMenu ()
   printf ("Tapez \n") ; 
   printf ("%c pour Simulation graphique de la reussite QLL, \n",TexteSimulationQLL) ; 
   printf (" %c pour Analyse d une serie de reussites QLL (sans affichage graphique), \n",TexteAnalyseQLL);
+	printf (" %c pour Analyse de 200 tour de 20 000 reussites QLL (sans affichage graphique), \n",TexteAnalyseSerieQLL);
   printf (" %c pour Fin, \n",TexteFin);
   printf (" %c pour Aide.\n",TexteAide); 
 }
@@ -89,6 +93,7 @@ void SaisirCommande (CodeCommande *CC)
     {
     case TexteSimulationQLL : *CC = SIMULQLL ; break ;
     case TexteAnalyseQLL :    *CC = ANALYSEQLL ; break ;
+		case TexteAnalyseSerieQLL :    *CC = ANALYSESERIEQLL ; break ;
     case TexteFin :          *CC = FIN ; break ;
     } 
 } 
