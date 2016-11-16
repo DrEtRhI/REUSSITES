@@ -5,6 +5,7 @@
    --> types enumeres : Couleur, Rang
    --> tas representes par des listes chainees
 ----------------------------------------------------------------*/
+#include <stdlib.h>
 
 #include "Tas.h"
 #include "Alea.h"
@@ -19,12 +20,20 @@
 /* Ordre croissant sur les couleurs: trefle, carreau, coeur, pique */
 
 Couleur CouleurSuivante(Couleur C) {
+
+if (C < DerniereCouleur) 
+  {C+=1; }
+else
+  {C = PremiereCouleur;}  
+
+return C;
 }
 
 /* Rangs */
 /* Ordre croissant sur les rangs: deux, ..., dix, valet, dame, roi, as */
 
 Rang RangSuivant(Rang R) {
+/*eric*/
 }
 
 /*--------------------------------------------------------------------*/
@@ -36,51 +45,62 @@ Rang RangSuivant(Rang R) {
 	/* Testeurs et selecteurs */
 	
 Rang LeRang(Carte C) {
+/*arnaud*/
 }
 
 Couleur LaCouleur(Carte C) {
+/*arnaud*/
 }
 
 Visibilite EstCachee(Carte C) {
+/*arnaud*/
 }
 
 Visibilite EstDecouverte(Carte C) {
+/*arnaud*/
 }
 
 	/* Comparaison de cartes */
 	
 booleen RangInferieur(Carte C1, Carte C2) {
+/*arnaud*/
 }
 
 booleen MemeRang(Carte C1, Carte C2) {
+/*arnaud*/
 }
 
 booleen CouleurInferieure(Carte C1, Carte C2) {
-}
+/*gaetan*/}
 
 booleen MemeCouleur(Carte C1, Carte C2) {
-}
+/*gaetan*/}
 
 booleen EstCarteAvant(Carte C1, Carte C2) {
-}
+/*gaetan*/}
 
 /* Representation des tas */
 	
 	/* Testeurs et selecteurs */
 	
 booleen TasActif(Tas T) {
+return T.RT;
 }
 
 booleen TasVide(Tas T) {
+	/*Eric*/
 }
 
 booleen TasEmpile(Tas T) {
+return T.MT;
 }
 
 booleen TasEtale(Tas T) {
+/*eric*/
 }
 
 int LaHauteur(Tas T) {
+	return T.HT;
 }
 
 Localisation LaPlace(Tas T) {
@@ -94,6 +114,12 @@ associe à T un tas vide actif placé en L et de mode d'étalement M.
 Pré-condition : l'emplacement L est disponible
 **************************************************************** */
 void CreerTasVide(Localisation L, Mode M, Tas *T) {
+T -> MT = M;
+T -> LT = L;
+T -> RT = actif;
+T -> HT = 0;
+T -> tete = NULL;
+T -> queue = NULL;
 }
 
 /* *************************************************************
@@ -114,6 +140,11 @@ Pré-condition : l'emplacement L est libre
                 N==52 ou N==32
 **************************************************************** */
 void CreerJeuNeuf(int N, Localisation L, Tas *T) {
+
+
+
+
+
 }
 
 	/* Consultation des cartes d'un tas: ne deplace pas la carte */
