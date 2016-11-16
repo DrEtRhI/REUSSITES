@@ -4,10 +4,14 @@
 
 #include "C4.h"
 
+#include "Alea.h"
+
 char TexteCouleurC4[5][8] = {"", "Trefle", "Carreau", "Coeur", "Pique"};
 
 typedef Tas SerieCouleurC4;
 SerieCouleurC4 LigneC4[DerniereCouleur+1];
+
+void AfficherC4();
 
 /* Tableau de jeu */
 
@@ -60,7 +64,15 @@ void ReformerTableauInitialC4()
  CreerTableauInitialC4();
 }
 
-
+int TasDecouvert(Tas untas){
+  int i;
+  i=1;
+	
+  while ( i <= LaHauteur(untas) && EstDecouverte(IemeCarte(untas, i) ) )
+		{i = i+1; }
+		
+  return i > LaHauteur(untas);
+}
 
 
 int JouerUneC4(ModeTrace MT) {
@@ -107,15 +119,6 @@ else {printf("Vous avez gagné\n");}
 return gagne; 
 }
 
-int TasDecouvert(Tas untas){
-  int i;
-  i=1;
-	
-  while ( i <= LaHauteur(untas) && EstDecouverte(IemeCarte(untas, i) ) )
-		{i = i+1; }
-		
-  return i > LaHauteur(untas);
-}
 
 void AfficherC4()
 {
@@ -152,7 +155,6 @@ void AnalyserC4(int NP)
   int i;
   int succes;
   int cptrGagne = 0; /* Variable pour le nombre de parties gagnées */
-  float cG; /* Variable recupérant le parsing de cptrGagne en float */
 
   CreerTableauInitialC4();
   succes = JouerUneC4(SansTrace);
@@ -165,7 +167,6 @@ void AnalyserC4(int NP)
     cptrGagne = cptrGagne + succes; 
     }
 
-  cG = (float) cptrGagne;
 
   /* Affichage des différentes statistiques de la partie */	
   printf("Sur %d partie(s), vous en avez gagne %d\n", NP, cptrGagne);
