@@ -331,6 +331,7 @@ void BattreTas(Tas *T) {
 	int iAlea, jAlea, cptr;
 	cptr = 0;	
 	while (cptr != 1000){
+		InitAlea();
 		iAlea = UnEntier(totalCarte);
 		jAlea = UnEntier(totalCarte);
 		EchangerCartes(iAlea, jAlea, T);
@@ -361,8 +362,8 @@ void RetournerTas(Tas *T) {
 		if(AC->elt.VC == Decouverte)
 			AC->elt.VC = Cachee;
 
-		/*Passage à la carte suivante*/
-		AC = AC->suiv;
+		/*Passage à la carte suivante (qui est devenu la carte précedente)*/
+		AC = AC->prec;
 	}
 
 	/*Inversion de la tête et de la queue*/
