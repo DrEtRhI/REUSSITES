@@ -245,12 +245,16 @@ ieme carte dans T (de bas en haut).
 Précondition : i <= LaHauteur(T)
 **************************************************************** */
 Carte IemeCarte(Tas T, int i) {
-	int j;
-	
-	for (j=1;j<=i;j++) {		
-		T.tete;
-	}
+	int j = 1;
+	struct adCarte AC*;
+	AC = T.tete;
+	while (j != i) {		
+		AC = AC->suiv;
+		j++;
+	}		
+	return AC->elt;	
 }
+
 
 	/* Retournement d'une carte sur un tas */
 	
@@ -297,6 +301,15 @@ void BattreTas(Tas *T)
 bas le tas T
 **************************************************************** */
 void BattreTas(Tas *T) {
+	int totalCarte = T->HT;
+	int iAlea, jAlea, cptr;
+	cptr = 0;	
+	while (cptr != 1000){
+		iAlea = UnEntier(totalCarte);
+		jAlea = UnEntier(totalCarte);
+		EchangerCartes(iAlea, jAlea, T);
+		cptr ++;
+	}
 }
 
 /* ******************************************************************************
