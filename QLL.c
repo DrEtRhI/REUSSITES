@@ -339,7 +339,6 @@ int AnalyserQLL(int NP, int nbcartes)
 	retourGagne = 0;
 
 	return retourGagne;
-	
 }
 
 
