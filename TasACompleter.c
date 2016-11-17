@@ -164,8 +164,9 @@ devient libre pour un autre tas.
 Pré-condition : le tas T est vide et actif
 **************************************************************** */
 void SupprimerTasVide(Tas *T) {
-/*	*T.RT = inactif;
-	*T.LT = NULL;*/
+	T->RT = inactif;
+	T->LT.NC = NULL;
+	T->LT.NL = NULL;
 }
 
 /* *************************************************************
