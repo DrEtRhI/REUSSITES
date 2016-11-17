@@ -454,6 +454,15 @@ enlève la carte située au dessous de T1 et la place au dessous de T2.
 Pré-condition : T1 n'est pas vide, T2 est actif.
 ********************************************************************************* */
 void DeplacerBasSous(Tas *T1, Tas *T2) {
+	struct adCarte *AC;
+	AC = T1->tete ;
+	T1->tete = T1->tete->suiv ;
+	T1->tete->prec = AC ;
+	AC->suiv = T2 ;
+	T2->tete->prec = AC ;
+	T2.tete = T2->tete->prec ;
+	T1->HT = T1->HT - 1 ;
+	T2->HT = T2->HT +1 ;
 }
 
 /* ******************************************************************************
@@ -462,6 +471,20 @@ enlève du tas T1, la carte de couleur C et de rang R et la place au dessus de T2
 Pré-condition : T1 contient la carte et T2 est actif.
 ********************************************************************************* */
 void DeplacerCarteSur(Couleur C, Rang R, Tas *T1, Tas *T2) {
+	struct adCarte *AC;
+	AC = T1->tete;
+	while (T1->AC->elt.CC != C || T1->AC->elt.RC != R) {
+		AC=AC->suiv;
+	}
+	
+	T2->queue = AC ;
+	AC->prec->suiv = AC->suiv ;
+	AC->suiv->prec = AC->prec ;
+	AC->suiv = NULL ;
+	AC->prec = T2->queue ;
+	AC->prec->suiv = AC ;
+	T1->HT = T1->HT - 1 ;
+	T2->HT = T2->HT +1 ;
 }
 
 /* ******************************************************************************
@@ -475,6 +498,13 @@ Cette opération ne modifie ni la visibilité des cartes, ni la localisation des t
 ni leur mode d'étalement.
 ********************************************************************************* */
 void PoserTasSurTas(Tas *T1, Tas *T2) {
+	T2->queue->suiv = T1.tete ;
+	T1->tete->prec = T2->queue ;
+	T2->queue = T1->queue ;
+	
+	T2->HT = T1->HT + T2->HT ;
+	
+	CreerTasVide(T1.LT, T1.MT, Tas *T1) ;
 }
 
 
