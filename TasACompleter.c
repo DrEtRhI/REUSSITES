@@ -6,8 +6,7 @@
    --> tas representes par des listes chainees
 ----------------------------------------------------------------*/
 #include <stdlib.h>
-
-#include "TasACompleter.h"
+#include "Tas.h"
 #include "Alea.h"
 #include <stdlib.h>
 
@@ -22,12 +21,13 @@
 /* Ordre croissant sur les couleurs: trefle, carreau, coeur, pique */
 
 Couleur CouleurSuivante(Couleur C) {
-if (C < DerniereCouleur) 
-  {C+=1; }
-else
-  {C = PremiereCouleur;}  
+	if (C < DerniereCouleur){
+		C+=1; 
+	}else{
+		C = PremiereCouleur;
+	}  
 
-return C;
+	return C;
 }
 
 /* Rangs */
@@ -39,7 +39,8 @@ Rang RangSuivant(Rang R) {
 	}else{
 		R ++;
 	}
-return R;
+
+	return R;
 }
 
 /*--------------------------------------------------------------------*/
@@ -51,36 +52,44 @@ return R;
 	/* Testeurs et selecteurs */
 	
 Rang LeRang(Carte C) {
-return C.RC ;
+	
+	return C.RC ;
 }
 
 Couleur LaCouleur(Carte C) {
-return C.CC ;
+	
+	return C.CC ;
 }
 
 Visibilite EstCachee(Carte C) {
-return !C.VC ;
+
+	return !C.VC ;
 }
 
 Visibilite EstDecouverte(Carte C) {
-return C.VC ;
+
+	return C.VC ;
 }
 
 	/* Comparaison de cartes */
 	
 booleen RangInferieur(Carte C1, Carte C2) {
+
 	return LeRang(C1)<=LeRang(C2) ;
 }
 
 booleen MemeRang(Carte C1, Carte C2) {
+
 	return LeRang(C1) == LeRang(C2) ;
 }
 
 booleen CouleurInferieure(Carte C1, Carte C2) {
+
 	return (C1.CC < C2.CC);
 }
 
 booleen MemeCouleur(Carte C1, Carte C2) {
+
 	return (C1.CC == C2.CC);
 }
 
@@ -88,11 +97,11 @@ booleen EstCarteAvant(Carte C1, Carte C2) {
   booleen test = faux;
 	if (CouleurInferieure(C1, C2)){
 		test = vrai;
-	}
-	else if (MemeCouleur(C1, C2)){
+	}else if (MemeCouleur(C1, C2)){
 		test = RangInferieur(C1, C2);
+	}else{
+	test = faux;
 	}
-	else test = faux;
 	
 	return test;
 }
@@ -103,28 +112,33 @@ booleen EstCarteAvant(Carte C1, Carte C2) {
 	/* Testeurs et selecteurs */
 
 booleen TasActif(Tas T) {
-return T.RT;
+
+	return T.RT;
 }
 
 booleen TasVide(Tas T) {
 
-return T.HT == 0;
+	return T.HT == 0;
 }
 
 booleen TasEmpile(Tas T) {
-return T.MT;
+
+	return T.MT;
 }
 
 booleen TasEtale(Tas T) {
-return T.MT == etale;
+
+	return T.MT == etale;
 }
 
 int LaHauteur(Tas T) {
-return T.HT;
+
+	return T.HT;
 }
 
 Localisation LaPlace(Tas T) {
-return T.LT;
+
+	return T.LT;
 }
 
 	/* Constructeurs */
@@ -135,12 +149,12 @@ associe à T un tas vide actif placé en L et de mode d'étalement M.
 Pré-condition : l'emplacement L est disponible
 **************************************************************** */
 void CreerTasVide(Localisation L, Mode M, Tas *T) {
-T -> MT = M;
-T -> LT = L;
-T -> RT = actif;
-T -> HT = 0;
-T -> tete = NULL;
-T -> queue = NULL;
+	T -> MT = M;
+	T -> LT = L;
+	T -> RT = actif;
+	T -> HT = 0;
+	T -> tete = NULL;
+	T -> queue = NULL;
 }
 
 /* *************************************************************
@@ -163,12 +177,10 @@ Pré-condition : l'emplacement L est libre
                 N==52 ou N==32
 **************************************************************** */
 void CreerJeuNeuf(int N, Localisation L, Tas *T) {
-
-
 	Couleur Co = PremiereCouleur;
-	struct adCarte* nouvelleCarte, fictif;
+	struct adCarte *nouvelleCarte, *fictif;
 	int i;
-	nbCarte = N;
+	NbCartes = N;
 	if (N == 32) PremierRang = 7;
 	if (N == 52) PremierRang = 2;
 
@@ -200,11 +212,11 @@ void CreerJeuNeuf(int N, Localisation L, Tas *T) {
   T->queue->suiv = NULL;
 
 	/*liberer le Fictif!*/
-		T->tete = T->tete->suiv;
-		T->tete->prec = NULL;
-		free(fictif);
-		
-		T->HT = N;
+	T->tete = T->tete->suiv;
+	T->tete->prec = NULL;
+	free(fictif);
+	
+	T->HT = N;
 }
 
 	/* Consultation des cartes d'un tas: ne deplace pas la carte */
@@ -214,7 +226,8 @@ Carte CarteSur(Tas T) {
 carte situee au dessus du tas
 **************************************************************** */
 Carte CarteSur(Tas T) {
-return T.queue->elt;	
+
+	return T.queue->elt;	
 }
 
 /* *************************************************************
@@ -222,6 +235,7 @@ Carte CarteSous(Tas T) {
 carte situee au dessous du tas
 **************************************************************** */
 Carte CarteSous(Tas T) {
+
 	return T.tete->elt ;
 }
 
@@ -233,9 +247,8 @@ Précondition : i <= LaHauteur(T)
 Carte IemeCarte(Tas T, int i) {
 	int j;
 	
-	for (j=1;j<=i;j++) {
-		
-		T.tete
+	for (j=1;j<=i;j++) {		
+		T.tete;
 	}
 }
 
