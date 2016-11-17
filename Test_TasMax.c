@@ -62,15 +62,15 @@ Tas MCT_T2, MCT_T3;
 L.NC=1;
 L.NL=1;
 
-CreerJeuNeuf(32, MCT_L2, MCT_T2);
-CreerTasVide(MCT_L3, empile,MCT_T3);
+CreerJeuNeuf(32, MCT_L2, &MCT_T2);
+CreerTasVide(MCT_L3, empile,&MCT_T3);
 /*Affichage tas */
 printf("Tas source avant operation. Sa hauteur est %d\n", MCT_T2.HT);
 AfficheTaspourtest(MCT_T2);
 printf("Tas destination avant operation (vide). Sa hauteur est %d\n", MCT_T3.HT);
 AfficheTaspourtest(MCT_T3);
 
-DeplacerHautSur(Tas &MCT_T2, Tas &MCT_T3);
+DeplacerHautSur(&MCT_T2,&MCT_T3);
 
 /*Affichage tas */
 
