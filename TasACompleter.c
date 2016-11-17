@@ -411,6 +411,7 @@ void DeplacerHautSur(Tas *T1, Tas *T2) {
   T1->queue = T1->queue->prec;
   T1->queue->suiv = NULL;
   AC-> prec = T2->queue;
+  T2->queue->suiv =AC;
   T2->queue = AC;
 
   T1 -> HT = T1 ->HT-1;
@@ -432,6 +433,7 @@ void DeplacerHautSous(Tas *T1, Tas *T2) {
   T1->queue = T1->queue->prec;
   T1->queue->suiv = NULL;
   AC->suiv = T2->tete;
+  T2->tete->prec = AC;
   AC->prec = NULL;
   T2->tete = AC;
 
