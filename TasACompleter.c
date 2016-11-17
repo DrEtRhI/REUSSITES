@@ -265,6 +265,10 @@ retourne la carte située au dessus du tas T.
 Pré-condition : T non vide
 **************************************************************** */
 void RetournerCarteSur(Tas *T) {
+	if (T->queue->elt.VC == Cachee)
+	T->queue->elt.VC = Decouverte;
+	else
+	T->queue->elt.VC = Cachee;
 }
 
 /* *************************************************************
@@ -273,6 +277,10 @@ retourne la carte située au dessous du tas T.
 Pré-condition : T non vide
 **************************************************************** */
 void RetournerCarteSous(Tas *T) {
+	if (T->tete->elt.VC == Cachee)
+	T->tete->elt.VC = Decouverte;
+	else
+	T->tete->elt.VC = Cachee;
 }
 
 	/* Modification d'un tas */
@@ -283,9 +291,11 @@ void EtalerTas(Tas *T)
 modification du mode d'etalement d'un tas
 **************************************************************** */
 void EmpilerTas(Tas *T) {
+	T->MT = empile;
 }
 
 void EtalerTas(Tas *T) {
+	T->MT = etale;
 }
 
 	
@@ -295,6 +305,20 @@ echange les cartes i et j du tas T
 Precondition : les deux cartes existent i,j <= LaHauteur(T)
 **************************************************************** */
 void EchangerCartes(int i, int j, Tas *T) {
+	struct adCarte *AC;
+	int cptr;
+
+	Carte carteTemporaire = IemeCarte(i,*T); /*carteTemporaire stock la ième carte*/
+
+	AC = T->tete
+	for (cptr = 1; cptr < i; cptr++) 
+			AC = AC->suiv;
+	AC->elt = IemeCarte((j,*T));	/*La carte i devient la carte j*/
+
+	AC = T->tete;
+	for (cptr = 1; cptr < j; cptr++)
+			AC = AC->suiv;
+	AC->elt = carteTemporaire;	/*La carte j devient la carte i, par l'intermédiaire de la carteTemporaire*/
 }
 
 /* *************************************************************
