@@ -402,6 +402,19 @@ enlève la carte située au dessus de T1 et la place au dessus de T2
 Pré-condition : T1 n'est pas vide, T2 est actif.
 ********************************************************************************* */
 void DeplacerHautSur(Tas *T1, Tas *T2) {
+ /*
+ * T1 tas source
+ * T2 Tas destination
+ */
+  struct adCarte *AC;
+  AC = T1->queue; 
+  T1->queue = T1->queue->prec;
+  T1->queue->suiv = NULL;
+  AC-> prec = T2->queue;
+  T2->queue = AC;
+
+  T1 -> HT = T1 ->HT-1;
+  T2 -> HT = T2 ->HT+1;
 }
 
 /* ******************************************************************************
@@ -410,6 +423,20 @@ enlève la carte située au dessus de T1 et la place au dessous de T2.
 Pré-condition : T1 n'est pas vide, T2 est actif.
 ********************************************************************************* */
 void DeplacerHautSous(Tas *T1, Tas *T2) {
+ /*
+ * T1 tas source
+ * T2 Tas destination
+ */
+  struct adCarte *AC;
+  AC = T1->queue; 
+  T1->queue = T1->queue->prec;
+  T1->queue->suiv = NULL;
+  AC->suiv = T2->tete;
+  AC->prec = NULL;
+  T2->tete = AC;
+
+  T1 -> HT = T1 ->HT-1;
+  T2 -> HT = T2 ->HT+1;
 }
 
 /* ******************************************************************************
