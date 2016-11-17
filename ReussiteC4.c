@@ -5,6 +5,7 @@
 
 #include "C4.h"
 #include "InteractionC4.h"
+#include "Alea.h"
 
 /* -------------------------------------------------------------------
  *      PROGRAMME PRINCIPAL AVEC MENU D'INTERACTION

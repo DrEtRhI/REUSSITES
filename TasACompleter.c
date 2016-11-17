@@ -7,7 +7,7 @@
 ----------------------------------------------------------------*/
 #include <stdlib.h>
 
-#include "Tas.h"
+#include "TasACompleter.h"
 #include "Alea.h"
 #include <stdlib.h>
 
@@ -51,29 +51,29 @@ return R;
 	/* Testeurs et selecteurs */
 	
 Rang LeRang(Carte C) {
-/* Arnaud */
+return C.RC ;
 }
 
 Couleur LaCouleur(Carte C) {
-/* Arnaud */
+return C.CC ;
 }
 
 Visibilite EstCachee(Carte C) {
-/* Arnaud */
+return !C.VC ;
 }
 
 Visibilite EstDecouverte(Carte C) {
-/* Arnaud */
+return C.VC ;
 }
 
 	/* Comparaison de cartes */
 	
 booleen RangInferieur(Carte C1, Carte C2) {
-	return (C1.RC < C2.RC);
+	return LeRang(C1)<=LeRang(C2) ;
 }
 
 booleen MemeRang(Carte C1, Carte C2) {
-/*arnaud*/
+	return LeRang(C1) == LeRang(C2) ;
 }
 
 booleen CouleurInferieure(Carte C1, Carte C2) {
@@ -101,7 +101,7 @@ booleen EstCarteAvant(Carte C1, Carte C2) {
 /* Representation des tas */
 	
 	/* Testeurs et selecteurs */
-	
+
 booleen TasActif(Tas T) {
 return T.RT;
 }
@@ -124,7 +124,7 @@ return T.HT;
 }
 
 Localisation LaPlace(Tas T) {
-	return T.LT;
+return T.LT;
 }
 
 	/* Constructeurs */
@@ -222,6 +222,7 @@ Carte CarteSous(Tas T) {
 carte situee au dessous du tas
 **************************************************************** */
 Carte CarteSous(Tas T) {
+	return T.tete->elt ;
 }
 
 /* *************************************************************
@@ -230,6 +231,12 @@ ieme carte dans T (de bas en haut).
 Précondition : i <= LaHauteur(T)
 **************************************************************** */
 Carte IemeCarte(Tas T, int i) {
+	int j;
+	
+	for (j=1;j<=i;j++) {
+		
+		T.tete
+	}
 }
 
 	/* Retournement d'une carte sur un tas */
