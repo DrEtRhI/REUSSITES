@@ -15,16 +15,25 @@
 
 /* Couleurs et rangs */
 
+
 /* Couleurs */
 /* Ordre croissant sur les couleurs: trefle, carreau, coeur, pique */
 
 Couleur CouleurSuivante(Couleur C) {
+/*Max*/
 }
 
 /* Rangs */
 /* Ordre croissant sur les rangs: deux, ..., dix, valet, dame, roi, as */
 
 Rang RangSuivant(Rang R) {
+
+	if (R == As){
+		R = Deux;
+	}else{
+		R ++;
+	}
+return R;	
 }
 
 /*--------------------------------------------------------------------*/
@@ -36,32 +45,41 @@ Rang RangSuivant(Rang R) {
 	/* Testeurs et selecteurs */
 	
 Rang LeRang(Carte C) {
+/* Arnaud */
 }
 
 Couleur LaCouleur(Carte C) {
+/* Arnaud */
 }
 
 Visibilite EstCachee(Carte C) {
+/* Arnaud */
 }
 
 Visibilite EstDecouverte(Carte C) {
+/* Arnaud */
 }
 
 	/* Comparaison de cartes */
 	
 booleen RangInferieur(Carte C1, Carte C2) {
+/* Arnaud */
 }
 
 booleen MemeRang(Carte C1, Carte C2) {
+/* Arnaud */
 }
 
 booleen CouleurInferieure(Carte C1, Carte C2) {
+/* Gaetan */
 }
 
 booleen MemeCouleur(Carte C1, Carte C2) {
+/* Gaetan */
 }
 
 booleen EstCarteAvant(Carte C1, Carte C2) {
+/* Gaetan */
 }
 
 /* Representation des tas */
@@ -69,21 +87,28 @@ booleen EstCarteAvant(Carte C1, Carte C2) {
 	/* Testeurs et selecteurs */
 	
 booleen TasActif(Tas T) {
+/* Max */
 }
 
 booleen TasVide(Tas T) {
+
+return T.HT == 0;
 }
 
 booleen TasEmpile(Tas T) {
+/* Max */
 }
 
 booleen TasEtale(Tas T) {
+return T.MT == etale;
 }
 
 int LaHauteur(Tas T) {
+/* Max */
 }
 
 Localisation LaPlace(Tas T) {
+	return T.LT;
 }
 
 	/* Constructeurs */
@@ -123,6 +148,7 @@ Carte CarteSur(Tas T) {
 carte situee au dessus du tas
 **************************************************************** */
 Carte CarteSur(Tas T) {
+return T.queue->elt;	
 }
 
 /* *************************************************************
