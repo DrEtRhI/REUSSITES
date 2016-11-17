@@ -9,6 +9,7 @@
 
 #include "Tas.h"
 #include "Alea.h"
+#include <stdlib.h>
 
 /*-----------------------------------*/
 /* Specifications des objets de base */
@@ -63,7 +64,7 @@ Visibilite EstDecouverte(Carte C) {
 	/* Comparaison de cartes */
 	
 booleen RangInferieur(Carte C1, Carte C2) {
-/*arnaud*/
+	return (C1.RC < C2.RC);
 }
 
 booleen MemeRang(Carte C1, Carte C2) {
@@ -71,13 +72,27 @@ booleen MemeRang(Carte C1, Carte C2) {
 }
 
 booleen CouleurInferieure(Carte C1, Carte C2) {
-/*gaetan*/}
+	return (C1.CC < C2.CC);
+}
 
 booleen MemeCouleur(Carte C1, Carte C2) {
-/*gaetan*/}
+	return (C1.CC == C2.CC);
+}
 
 booleen EstCarteAvant(Carte C1, Carte C2) {
-/*gaetan*/}
+  booleen test = faux;
+	if (CouleurInferieure(C1, C2)){
+		test = vrai;
+	}
+	else if (MemeCouleur(C1, C2)){
+		test = RangInferieur(C1, C2);
+	}
+	else test = faux;
+	
+	return test;
+
+}
+
 
 /* Representation des tas */
 	
@@ -129,6 +144,8 @@ devient libre pour un autre tas.
 Pré-condition : le tas T est vide et actif
 **************************************************************** */
 void SupprimerTasVide(Tas *T) {
+/*	*T.RT = inactif;
+	*T.LT = NULL;*/
 }
 
 /* *************************************************************
@@ -142,9 +159,33 @@ Pré-condition : l'emplacement L est libre
 void CreerJeuNeuf(int N, Localisation L, Tas *T) {
 
 
+	Couleur Co = PremiereCouleur;
+	Rang Rc;
+	struct adCarte* AC;
+	int i;
+	/*Mise à jour des paramètres de T.*/
+	T->MT = empile;
+	T->LT.NC = L.NC;
+	T->LT.NL = L.NL;
 
 
+	if (N == 32) Rc = 7;
+	if (N == 52) Rc = 2;				
+	/*Rmq : Rc n'est pas instancier si N n'est pas valide*/
+	
+	/*Création de la première carte du tas à la tête*/
+	T->tete = (struct adCarte*) malloc(sizeof(struct adCarte)); /*doute sur le adCarte"*" */
+	T->tete->elt.CC = Co;
+	T->tete->elt.RC = Rc;
+	T->tete->elt.VC = Cachee;
+	T->tete->prec = NULL;
+	AC = T->tete;
+	
+	for (i=1; i < N; i++){
+			
 
+ 
+	}
 }
 
 	/* Consultation des cartes d'un tas: ne deplace pas la carte */
