@@ -528,8 +528,9 @@ void PoserTasSurTas(Tas *T1, Tas *T2) {
 		T2->tete = T1->tete;								/*RMQ : si seul T1 est vide, T2 ne change pas*/
 	}														/*RMQ : si les deux tas sont vides, il ne se passe rien non plus...*/
 	T2->HT = T1->HT + T2->HT ;
-	
-	CreerTasVide(T1->LT, T1->MT, T1) ;
+	T1->HT = 0;
+	T1->tete = NULL;
+	T1->queue = NULL;
 }
 
 
