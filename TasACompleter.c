@@ -379,11 +379,18 @@ void AjouterCarteSurTas (adCarte *ac, Tas *T)
 ajoute la carte d'adresse ac sur le tas T
 ********************************************************************************* */
 void AjouterCarteSurTas (struct adCarte *ac, Tas *T) {
+	if(T->queue != NULL){	/*Si T->queue == NULL, cela signifie que le tas est vide*/
 	T->queue->suiv = ac;
 	ac->prec = T->queue;
 	T->queue = T->queue->suiv;
 	T->queue->suiv = NULL;
-
+	}else{					/*Ici, on rgle le cas du tas vide*/
+	T->queue = ac;
+	T->tete = ac;
+	T->queue->suiv = NULL;
+	T->queue->prec = NULL;
+	}
+	
 	T->HT ++;
 }
 
@@ -392,11 +399,17 @@ void AjouterCarteSousTas (adCarte *ac, Tas *T)
 ajoute la carte d'adresse ac sous le tas T
 ********************************************************************************* */
 void AjouterCarteSousTas (struct adCarte *ac, Tas *T) {
+	if(T->tete != NULL){	/*Si T->tete == NULL, cela signifie que le tas est vide*/
 	T->tete->prec = ac;
 	ac->suiv = T->tete;
 	T->tete = T->tete->prec;
 	T->tete->prec = NULL;
-
+	}else{						/*Ici, on rgle le cas du tas vide*/
+	T->tete = ac;				
+	T->queue = ac;
+	T->tete->suiv = NULL;
+	T->tete->prec = NULL;
+	}
 	T->HT ++;
 }
 
