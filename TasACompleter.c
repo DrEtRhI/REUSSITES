@@ -6,7 +6,7 @@
    --> tas representes par des listes chainees
 ----------------------------------------------------------------*/
 
-#include "Tas.h"
+#include "TasACompleter.h"
 #include "Alea.h"
 
 /*-----------------------------------*/
@@ -19,12 +19,16 @@
 /* Ordre croissant sur les couleurs: trefle, carreau, coeur, pique */
 
 Couleur CouleurSuivante(Couleur C) {
+	if (C==4) {return 1;}
+	else {return C+1;}
 }
 
 /* Rangs */
 /* Ordre croissant sur les rangs: deux, ..., dix, valet, dame, roi, as */
 
 Rang RangSuivant(Rang R) {
+	if (R == As) {return Deux;}
+	else {return R+1;}
 }
 
 /*--------------------------------------------------------------------*/
@@ -36,23 +40,29 @@ Rang RangSuivant(Rang R) {
 	/* Testeurs et selecteurs */
 	
 Rang LeRang(Carte C) {
+return C.RC ;
 }
 
 Couleur LaCouleur(Carte C) {
+return C.CC ;
 }
 
 Visibilite EstCachee(Carte C) {
+return !C.VC ;
 }
 
 Visibilite EstDecouverte(Carte C) {
+return C.VC ;
 }
 
 	/* Comparaison de cartes */
 	
 booleen RangInferieur(Carte C1, Carte C2) {
+	return LeRang(C1)<=LeRang(C2) ;
 }
 
 booleen MemeRang(Carte C1, Carte C2) {
+	return LeRang(C1) == LeRang(C2) ;
 }
 
 booleen CouleurInferieure(Carte C1, Carte C2) {
@@ -67,7 +77,7 @@ booleen EstCarteAvant(Carte C1, Carte C2) {
 /* Representation des tas */
 	
 	/* Testeurs et selecteurs */
-	
+
 booleen TasActif(Tas T) {
 }
 
@@ -81,9 +91,11 @@ booleen TasEtale(Tas T) {
 }
 
 int LaHauteur(Tas T) {
+return T.HT;
 }
 
 Localisation LaPlace(Tas T) {
+return T.LT;
 }
 
 	/* Constructeurs */
@@ -123,6 +135,7 @@ Carte CarteSur(Tas T) {
 carte situee au dessus du tas
 **************************************************************** */
 Carte CarteSur(Tas T) {
+	return T.queue->elt ;
 }
 
 /* *************************************************************
@@ -130,6 +143,7 @@ Carte CarteSous(Tas T) {
 carte situee au dessous du tas
 **************************************************************** */
 Carte CarteSous(Tas T) {
+	return T.tete->elt ;
 }
 
 /* *************************************************************
@@ -138,6 +152,12 @@ ieme carte dans T (de bas en haut).
 Précondition : i <= LaHauteur(T)
 **************************************************************** */
 Carte IemeCarte(Tas T, int i) {
+	int j;
+	
+	for (j=1;j<=i;j++) {
+		
+		T.tete
+	}
 }
 
 	/* Retournement d'une carte sur un tas */
