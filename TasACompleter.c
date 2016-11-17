@@ -166,34 +166,45 @@ void CreerJeuNeuf(int N, Localisation L, Tas *T) {
 
 
 	Couleur Co = PremiereCouleur;
-	Rang Rc;
-	struct adCarte* AC;
+	struct adCarte* nouvelleCarte, fictif;
 	int i;
-	/*Mise à jour des paramètres de T.*/
-	T->MT = empile;
-	T->LT.NC = L.NC;
-	T->LT.NL = L.NL;
-
-
-	if (N == 32) Rc = 7;
-	if (N == 52) Rc = 2;
 	nbCarte = N;
-	PremierRang = Rc;			
-	/*Rmq : Rc n'est pas instancier si N n'est pas valide*/
-	
-	/*Création de la première carte du tas à la tête*/
-	T->tete = (struct adCarte*) malloc(sizeof(struct adCarte)); /*doute sur le adCarte"*" */
-	T->tete->elt.CC = Co;
-	T->tete->elt.RC = Rc;
-	T->tete->elt.VC = Cachee;
-	T->tete->prec = NULL;
-	AC = T->tete;
-	
-	for (i=1; i < N; i++){
-			
+	if (N == 32) PremierRang = 7;
+	if (N == 52) PremierRang = 2;
 
- 
-	}
+	/*Initialisation du tas vide*/
+	CreerTasVide(L,empile,T);
+	
+	/*Création d'un fictif*/
+	fictif = (struct adCarte*) malloc(sizeof(struct adCarte));
+	T->tete = fictif;
+
+  /*chainage de la queue*/
+	T->queue = T->tete;
+
+	for (Co; Co <= DerniereCouleur; Co ++){
+		for (i = PremierRang; i <= DernierRang; i++){
+
+				/*Création et initialisation de la ième carte*/
+				nouvelleCarte = (struct adCarte*) malloc(sizeof(struct adCarte));
+				nouvelleCarte->elt.CC = Co;
+				nouvelleCarte->elt.RC = i;
+				nouvelleCarte->elt.VC = Cachee;
+
+				/*Chainage*/
+				T->queue->suiv = nouvelleCarte;
+ 				nouvelleCarte->prec = T->queue;
+				T->queue = nouvelleCarte;
+		}
+  }
+  T->queue->suiv = NULL;
+
+	/*liberer le Fictif!*/
+		T->tete = T->tete->suiv;
+		T->tete->prec = NULL;
+		free(fictif);
+		
+		T->HT = N;
 }
 
 	/* Consultation des cartes d'un tas: ne deplace pas la carte */
