@@ -518,10 +518,15 @@ Cette opération ne modifie ni la visibilité des cartes, ni la localisation des t
 ni leur mode d'étalement.
 ********************************************************************************* */
 void PoserTasSurTas(Tas *T1, Tas *T2) {
-	T2->queue->suiv = T1->tete ;
-	T1->tete->prec = T2->queue ;
-	T2->queue = T1->queue ;
 	
+	if(T2->queue != NULL && T1->tete != NULL){			/*Si T2->queue == NULL ou T1->tete == NULL, cela signifie qu'ils sont vides (tete ou queue)*/
+		T2->queue->suiv = T1->tete ;
+		T1->tete->prec = T2->queue ;
+		T2->queue = T1->queue ;
+	} else if (T2->queue == NULL && T1->tete != NULL){	/*Prise en compte tu cas particulier si seul T2 est vide*/
+		T2->queue = T1->queue;
+		T2->tete = T1->tete;								/*RMQ : si seul T1 est vide, T2 ne change pas*/
+	}														/*RMQ : si les deux tas sont vides, il ne se passe rien non plus...*/
 	T2->HT = T1->HT + T2->HT ;
 	
 	CreerTasVide(T1->LT, T1->MT, T1) ;
