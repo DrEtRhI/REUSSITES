@@ -7,10 +7,10 @@
 /* Interaction avec l'utilisateur */
 
 /* -------------------------------------------------------------------
- * CodeCommande   : le type [SIMULQLL, ANALYSEQLL, FIN]
+ * CodeCommande   : le type [SIMULR7, ANALYSER7, FIN]
  * -------------------------------------------------------------------
 */
 
-typedef enum {SIMULQLL, ANALYSEQLL, ANALYSESERIEQLL, FIN}     CodeCommande ;
+typedef enum {SIMULC4, ANALYSEC4, FIN}     CodeCommande ;
 
 void SaisirCommande (CodeCommande *);

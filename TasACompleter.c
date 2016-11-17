@@ -5,9 +5,11 @@
    --> types enumeres : Couleur, Rang
    --> tas representes par des listes chainees
 ----------------------------------------------------------------*/
+#include <stdlib.h>
 
 #include "Tas.h"
 #include "Alea.h"
+#include <stdlib.h>
 
 /*-----------------------------------*/
 /* Specifications des objets de base */
@@ -20,20 +22,24 @@
 /* Ordre croissant sur les couleurs: trefle, carreau, coeur, pique */
 
 Couleur CouleurSuivante(Couleur C) {
-/*Max*/
+if (C < DerniereCouleur) 
+  {C+=1; }
+else
+  {C = PremiereCouleur;}  
+
+return C;
 }
 
 /* Rangs */
 /* Ordre croissant sur les rangs: deux, ..., dix, valet, dame, roi, as */
 
 Rang RangSuivant(Rang R) {
-
 	if (R == As){
 		R = Deux;
 	}else{
 		R ++;
 	}
-return R;	
+return R;
 }
 
 /*--------------------------------------------------------------------*/
@@ -63,31 +69,41 @@ Visibilite EstDecouverte(Carte C) {
 	/* Comparaison de cartes */
 	
 booleen RangInferieur(Carte C1, Carte C2) {
-/* Arnaud */
+	return (C1.RC < C2.RC);
 }
 
 booleen MemeRang(Carte C1, Carte C2) {
-/* Arnaud */
+/*arnaud*/
 }
 
 booleen CouleurInferieure(Carte C1, Carte C2) {
-/* Gaetan */
+	return (C1.CC < C2.CC);
 }
 
 booleen MemeCouleur(Carte C1, Carte C2) {
-/* Gaetan */
+	return (C1.CC == C2.CC);
 }
 
 booleen EstCarteAvant(Carte C1, Carte C2) {
-/* Gaetan */
+  booleen test = faux;
+	if (CouleurInferieure(C1, C2)){
+		test = vrai;
+	}
+	else if (MemeCouleur(C1, C2)){
+		test = RangInferieur(C1, C2);
+	}
+	else test = faux;
+	
+	return test;
 }
+
 
 /* Representation des tas */
 	
 	/* Testeurs et selecteurs */
 	
 booleen TasActif(Tas T) {
-/* Max */
+return T.RT;
 }
 
 booleen TasVide(Tas T) {
@@ -96,7 +112,7 @@ return T.HT == 0;
 }
 
 booleen TasEmpile(Tas T) {
-/* Max */
+return T.MT;
 }
 
 booleen TasEtale(Tas T) {
@@ -104,7 +120,7 @@ return T.MT == etale;
 }
 
 int LaHauteur(Tas T) {
-/* Max */
+return T.HT;
 }
 
 Localisation LaPlace(Tas T) {
@@ -119,6 +135,12 @@ associe à T un tas vide actif placé en L et de mode d'étalement M.
 Pré-condition : l'emplacement L est disponible
 **************************************************************** */
 void CreerTasVide(Localisation L, Mode M, Tas *T) {
+T -> MT = M;
+T -> LT = L;
+T -> RT = actif;
+T -> HT = 0;
+T -> tete = NULL;
+T -> queue = NULL;
 }
 
 /* *************************************************************
@@ -128,6 +150,8 @@ devient libre pour un autre tas.
 Pré-condition : le tas T est vide et actif
 **************************************************************** */
 void SupprimerTasVide(Tas *T) {
+/*	*T.RT = inactif;
+	*T.LT = NULL;*/
 }
 
 /* *************************************************************
@@ -139,6 +163,35 @@ Pré-condition : l'emplacement L est libre
                 N==52 ou N==32
 **************************************************************** */
 void CreerJeuNeuf(int N, Localisation L, Tas *T) {
+
+
+	Couleur Co = PremiereCouleur;
+	Rang Rc;
+	struct adCarte* AC;
+	int i;
+	/*Mise à jour des paramètres de T.*/
+	T->MT = empile;
+	T->LT.NC = L.NC;
+	T->LT.NL = L.NL;
+
+
+	if (N == 32) Rc = 7;
+	if (N == 52) Rc = 2;				
+	/*Rmq : Rc n'est pas instancier si N n'est pas valide*/
+	
+	/*Création de la première carte du tas à la tête*/
+	T->tete = (struct adCarte*) malloc(sizeof(struct adCarte)); /*doute sur le adCarte"*" */
+	T->tete->elt.CC = Co;
+	T->tete->elt.RC = Rc;
+	T->tete->elt.VC = Cachee;
+	T->tete->prec = NULL;
+	AC = T->tete;
+	
+	for (i=1; i < N; i++){
+			
+
+ 
+	}
 }
 
 	/* Consultation des cartes d'un tas: ne deplace pas la carte */

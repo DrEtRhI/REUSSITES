@@ -15,19 +15,17 @@
 
 #define         NbMaxEssais              5 
 #define         Invite                   "Votre Choix (? pour liste des commandes) : " 
-#define         TexteSimulationQLL        '1' 
-#define         TexteAnalyseQLL           '2' 
-#define         TexteFin                  'F' 
-#define         TexteAide                 '?' 
-
-#define         TexteAnalyseSerieQLL           '3' 
+#define         TexteSimulationC4        '1' 
+#define         TexteAnalyseC4           '2' 
+#define         TexteFin                 'F' 
+#define         TexteAide                '?' 
 
 /* -------------------------------------------------------------------
- * CodeCommande   : le type [SIMULQLL, ANALYSEQLL, FIN]
+ * CodeCommande   : le type [SIMULC4, ANALYSEC4, FIN]
  * -------------------------------------------------------------------
 */
 
-typedef enum {SIMULQLL, ANALYSEQLL, ANALYSESERIEQLL,FIN}     CodeCommande ;
+typedef enum {SIMULC4, ANALYSEC4, FIN}     CodeCommande ;
 
 /* -------------------------------------------------------------------
  *      INTERACTION
@@ -46,18 +44,16 @@ void	LireCar (char	*c)
 int EstTexteCommande (char c)
 {
   return
-    ((c == TexteSimulationQLL) ||
-     (c == TexteAnalyseQLL) ||
-		 (c == TexteAnalyseSerieQLL) ||
+    ((c == TexteSimulationC4) ||
+     (c == TexteAnalyseC4) ||
      (c == TexteFin)) ;
 }
 
 void EcrireMenu ()
 {
   printf ("Tapez \n") ; 
-  printf ("%c pour Simulation graphique de la reussite QLL, \n",TexteSimulationQLL) ; 
-  printf (" %c pour Analyse d une serie de reussites QLL (sans affichage graphique), \n",TexteAnalyseQLL);
-	printf (" %c pour Analyse de 200 tour de 20 000 reussites QLL (sans affichage graphique), \n",TexteAnalyseSerieQLL);
+  printf ("%c pour Simulation graphique de la reussite C4, \n",TexteSimulationC4) ; 
+  printf (" %c pour Analyse d une serie de reussites C4 (sans affichage graphique), \n",TexteAnalyseC4);
   printf (" %c pour Fin, \n",TexteFin);
   printf (" %c pour Aide.\n",TexteAide); 
 }
@@ -91,9 +87,8 @@ void SaisirCommande (CodeCommande *CC)
     *CC = FIN  ;
   else switch (C)  
     {
-    case TexteSimulationQLL : *CC = SIMULQLL ; break ;
-    case TexteAnalyseQLL :    *CC = ANALYSEQLL ; break ;
-		case TexteAnalyseSerieQLL :    *CC = ANALYSESERIEQLL ; break ;
+    case TexteSimulationC4 : *CC = SIMULC4 ; break ;
+    case TexteAnalyseC4 :    *CC = ANALYSEC4 ; break ;
     case TexteFin :          *CC = FIN ; break ;
     } 
 } 

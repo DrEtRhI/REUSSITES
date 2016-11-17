@@ -7,6 +7,6 @@
 
 #include "AfficherTas.h"
 
-void ObserverQLL(int, int);
-int AnalyserQLL(int, int);
+void ObserverC4(int);
+void AnalyserC4(int);
 	

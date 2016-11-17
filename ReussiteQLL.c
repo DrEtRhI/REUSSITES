@@ -27,7 +27,11 @@ int main(void)
   int nbparties ;
 	int nbcartes ;
   InitAlea();
- 
+/*------------------------------------------------------------------------*/
+ 	int cptrG = 0;
+	int i;
+/*------------------------------------------------------------------------*/
+
   printf (TexteBienvenue) ;
   SaisirCommande (&Commande) ;
   while (Commande != FIN) {
@@ -59,7 +63,16 @@ int main(void)
 			}
       AnalyserQLL(nbparties, nbcartes);
       break;
-    } 
+/*------------------------------------------------------------------------*/
+		case ANALYSESERIEQLL :
+			for (i = 0; i < 200; i++) 
+			cptrG += AnalyserQLL(20000, 52);
+			cptrG = cptrG*100/200;
+			printf("Vous avez gagne avec un pourcentage de %d %%", cptrG);
+			break;
+/*------------------------------------------------------------------------*/
+    }
+		
     SaisirCommande (&Commande) ;
     
   } 

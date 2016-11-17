@@ -272,9 +272,10 @@ int JouerUneQLL(int nbPartie, ModeTrace MT)
   
  	cptrPartie = nbPartie - 1;
 	int cptrPartieGagne = 0;
+/*-----------------------------------------------------	
 	int y;
 	int i;
-
+------------------------------------------------------*/
 	cptrPartieGagne = JouerUnTourQLL(MT);
 
   while (cptrPartie != 0)  
@@ -282,7 +283,7 @@ int JouerUneQLL(int nbPartie, ModeTrace MT)
       ReformerTableauInitialQLL();
 			cptrPartieGagne += JouerUnTourQLL(MT);
 			cptrPartie--;
-/*-----------------------------------------------------*/	
+/*-----------------------------------------------------	
 			if (cptrPartie == 5000){
 			printf("Partie 15000\n");
 		y = IndiceTasVideQLL(); 
@@ -304,7 +305,7 @@ printf("Partie 5000\n");
 				printf("Carte i = %d, Rang : %d, Couleur : %d, HT : %d\n", i+1, LeRang(CarteSur(TableauQLL[i])), LaCouleur(CarteSur(TableauQLL[i])), LaHauteur(TableauQLL[i]));
 		}
 	}
-/*------------------------------------------------------*/
+------------------------------------------------------*/
     }
 return cptrPartieGagne;
 }
@@ -317,31 +318,27 @@ void ObserverQLL(int NP, int nbcartes)
 
 }
 
-void AnalyserQLL(int NP, int nbcartes)
+int AnalyserQLL(int NP, int nbcartes)
 {
+	int retourGagne;
 	int nombreVictoire;
-	int i;
-	int x = 0;
-	int y = IndiceTasVideQLL();
 	nbcartesQLL = nbcartes;	
 	premiereVictoire = 0;
 	victoire = false;	
+
   CreerTableauInitialQLL();
   nombreVictoire = JouerUneQLL(NP, SansTrace);
 	printf("Vous avez gagne : %d partie(s) sur : %d.\n", nombreVictoire, NP);
 	printf("Soit un pourcentage de victoire de %d %%\n", nombreVictoire * 100 / NP);
 	if (victoire == true)
 	printf("Vous avez gagne pour la premiere fois a la partie numero : %d.\n", premiereVictoire);
-	for (i = 0; i < y; i++){
-		x = x + TableauQLL[i].HT;
-	}
-	printf(" %d\n", x);
-	if (cptrPartie == 0){
-	printf("Partie 20000\n");
-		for (i = 0; i < y; i++){
-				printf("Carte i = %d, Rang : %d, Couleur : %d, HT : %d\n", i+1, LeRang(CarteSur(TableauQLL[i])), LaCouleur(CarteSur(TableauQLL[i])), LaHauteur(TableauQLL[i]));
-		}
-	}
+
+	if ((nombreVictoire * 100 / NP) > 90)
+	retourGagne = 1;
+	else
+	retourGagne = 0;
+
+	return retourGagne;
 	
 }
 
