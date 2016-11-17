@@ -18,7 +18,7 @@
 #define         TexteNbASimuler          "Choisissez le nombre de parties a simuler : "
 #define         TexteNbAAnalyser         "Choisissez le nombre de parties a analyser : "
 #define         TexteAuRevoir            "Au revoir \n" 
-#define					TexteNbCartes						 "Combien de carte voulez vous 32 ou 52 ?? : "
+#define			TexteNbCartes						 "Combien de carte voulez vous 32 ou 52 ?? : "
 
 int main(void)
 {
