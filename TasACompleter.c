@@ -379,12 +379,19 @@ void AjouterCarteSurTas (adCarte *ac, Tas *T)
 ajoute la carte d'adresse ac sur le tas T
 ********************************************************************************* */
 void AjouterCarteSurTas (struct adCarte *ac, Tas *T) {
-	T->queue->suiv = ac;
-	ac->prec = T->queue;
-	T->queue = T->queue->suiv;
-	T->queue->suiv = NULL;
-
-	T->HT ++;
+  if (T->tete == NULL) {
+    /* cas ou le tas est vide */
+    T->tete = ac;
+    T->queue = ac;
+    }
+  else {
+    /*cas ou le tas est non vide*/
+    T->queue->suiv = ac;
+    ac->prec = T->queue;
+    T->queue = T->queue->suiv;
+    T->queue->suiv = NULL;
+  }
+T->HT ++;
 }
 
 /* ******************************************************************************
@@ -392,12 +399,19 @@ void AjouterCarteSousTas (adCarte *ac, Tas *T)
 ajoute la carte d'adresse ac sous le tas T
 ********************************************************************************* */
 void AjouterCarteSousTas (struct adCarte *ac, Tas *T) {
-	T->tete->prec = ac;
-	ac->suiv = T->tete;
-	T->tete = T->tete->prec;
-	T->tete->prec = NULL;
-
-	T->HT ++;
+if (T->tete == NULL) {
+    /* cas ou le tas est vide */
+    T->tete = ac;
+    T->queue = ac;
+    }
+  else {
+    /*cas ou le tas est non vide*/
+    T->tete->prec = ac;
+    ac->suiv = T->tete;
+    T->tete = T->tete->prec;
+    T->tete->prec = NULL;
+  }
+T->HT ++;
 }
 
 /* ******************************************************************************
@@ -412,11 +426,13 @@ void DeplacerHautSur(Tas *T1, Tas *T2) {
  */
   struct adCarte *AC;
   AC = T1->queue; 
-  T1->queue = T1->queue->prec;
+  if (AC != T1->tete) 
+    {T1->queue = T1->queue->prec;
+    }
   T1->queue->suiv = NULL;
 
   AjouterCarteSurTas (AC, T2);
-
+  
   T1 -> HT --;
 }
 
@@ -432,7 +448,9 @@ void DeplacerHautSous(Tas *T1, Tas *T2) {
  */
   struct adCarte *AC;
   AC = T1->queue; 
-  T1->queue = T1->queue->prec;
+  if (AC != T1->tete) 
+    {T1->queue = T1->queue->prec;
+    }
   T1->queue->suiv = NULL;
 
 	AjouterCarteSousTas (AC, T2);
