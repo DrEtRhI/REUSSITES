@@ -165,8 +165,8 @@ Pré-condition : le tas T est vide et actif
 **************************************************************** */
 void SupprimerTasVide(Tas *T) {
 	T->RT = inactif;
-	T->LT.NC = NULL;
-	T->LT.NL = NULL;
+	T->LT.NC = 0;
+	T->LT.NL = 0;
 }
 
 /* *************************************************************
@@ -246,12 +246,16 @@ ieme carte dans T (de bas en haut).
 Précondition : i <= LaHauteur(T)
 **************************************************************** */
 Carte IemeCarte(Tas T, int i) {
-	int j;
-	
-	for (j=1;j<=i;j++) {		
-		T.tete;
-	}
+	int j = 1;
+	struct adCarte *AC;
+	AC = T.tete;
+	while (j != i) {		
+		AC = AC->suiv;
+		j++;
+	}		
+	return AC->elt;	
 }
+
 
 	/* Retournement d'une carte sur un tas */
 	
@@ -304,12 +308,12 @@ void EchangerCartes(int i, int j, Tas *T) {
 	struct adCarte *AC;
 	int cptr;
 
-	Carte carteTemporaire = IemeCarte(i,*T); /*carteTemporaire stock la ième carte*/
+	Carte carteTemporaire = IemeCarte(*T,i); /*carteTemporaire stock la ième carte*/
 
-	AC = T->tete
-	for (cptr = 1; cptr < i; cptr++) 
+	AC = T->tete;
+	for (cptr = 1; cptr < i; cptr++)
 			AC = AC->suiv;
-	AC->elt = IemeCarte((j,*T));	/*La carte i devient la carte j*/
+	AC->elt = IemeCarte(*T,j);	/*La carte i devient la carte j*/
 
 	AC = T->tete;
 	for (cptr = 1; cptr < j; cptr++)
@@ -322,6 +326,15 @@ void BattreTas(Tas *T)
 bas le tas T
 **************************************************************** */
 void BattreTas(Tas *T) {
+	int totalCarte = T->HT;
+	int iAlea, jAlea, cptr;
+	cptr = 0;	
+	while (cptr != 1000){
+		iAlea = UnEntier(totalCarte);
+		jAlea = UnEntier(totalCarte);
+		EchangerCartes(iAlea, jAlea, T);
+		cptr ++;
+	}
 }
 
 /* ******************************************************************************
@@ -329,6 +342,32 @@ void RetournerTas(Tas *T)
 retourne le tas T : la premiere devient la derniere et la visibilite est inversee
 ********************************************************************************* */
 void RetournerTas(Tas *T) {
+
+	struct adCarte *AC, *ACchainage; /*AC parcours les cartes du tas alors que ACchainage stock temporairement un chainage*/
+	
+	AC = T->tete;
+
+	while (AC != NULL){
+
+		/*Inversion des chainage*/
+		ACchainage = AC->suiv; /*Stockage de AC->suiv dans ACchainage*/
+		AC->suiv = AC->prec;
+		AC->prec = ACchainage;
+
+		/*Inversion de la visibilité*/
+		if(AC->elt.VC == Cachee)
+			AC->elt.VC = Decouverte;
+		if(AC->elt.VC == Decouverte)
+			AC->elt.VC = Cachee;
+
+		/*Passage à la carte suivante*/
+		AC = AC->suiv;
+	}
+
+	/*Inversion de la tête et de la queue*/
+	AC = T->tete;
+	T->tete = T->queue;
+	T->queue = AC;
 }
 
 	/* Deplacements de cartes d'un tas sur un autre */
@@ -339,6 +378,10 @@ void AjouterCarteSurTas (adCarte *ac, Tas *T)
 ajoute la carte d'adresse ac sur le tas T
 ********************************************************************************* */
 void AjouterCarteSurTas (struct adCarte *ac, Tas *T) {
+	T->queue->suiv = ac;
+	ac->prec = T->queue;
+	T->queue = T->queue->suiv;
+	T->queue->suiv = NULL;	
 }
 
 /* ******************************************************************************
@@ -346,6 +389,10 @@ void AjouterCarteSousTas (adCarte *ac, Tas *T)
 ajoute la carte d'adresse ac sous le tas T
 ********************************************************************************* */
 void AjouterCarteSousTas (struct adCarte *ac, Tas *T) {
+	T->tete->prec = ac;
+	ac->suiv = T->tete;
+	T->tete = T->tete->prec;
+	T->tete->prec = NULL;
 }
 
 /* ******************************************************************************
