@@ -176,7 +176,9 @@ void CreerJeuNeuf(int N, Localisation L, Tas *T) {
 
 
 	if (N == 32) Rc = 7;
-	if (N == 52) Rc = 2;				
+	if (N == 52) Rc = 2;
+	nbCarte = N;
+	PremierRang = Rc;			
 	/*Rmq : Rc n'est pas instancier si N n'est pas valide*/
 	
 	/*Création de la première carte du tas à la tête*/
