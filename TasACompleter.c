@@ -5,7 +5,6 @@
    --> types enumeres : Couleur, Rang
    --> tas representes par des listes chainees
 ----------------------------------------------------------------*/
-#include <stdlib.h>
 #include "Tas.h"
 #include "Alea.h"
 #include <stdlib.h>
@@ -327,11 +326,11 @@ void BattreTas(Tas *T)
 bas le tas T
 **************************************************************** */
 void BattreTas(Tas *T) {
+	InitAlea();
 	int totalCarte = T->HT;
 	int iAlea, jAlea, cptr;
 	cptr = 0;	
 	while (cptr != 1000){
-		InitAlea();
 		iAlea = UnEntier(totalCarte);
 		jAlea = UnEntier(totalCarte);
 		EchangerCartes(iAlea, jAlea, T);
@@ -359,7 +358,7 @@ void RetournerTas(Tas *T) {
 		/*Inversion de la visibilité*/
 		if(AC->elt.VC == Cachee)
 			AC->elt.VC = Decouverte;
-		if(AC->elt.VC == Decouverte)
+		else
 			AC->elt.VC = Cachee;
 
 		/*Passage à la carte suivante (qui est devenu la carte précedente)*/
@@ -383,7 +382,9 @@ void AjouterCarteSurTas (struct adCarte *ac, Tas *T) {
 	T->queue->suiv = ac;
 	ac->prec = T->queue;
 	T->queue = T->queue->suiv;
-	T->queue->suiv = NULL;	
+	T->queue->suiv = NULL;
+
+	T->HT ++;
 }
 
 /* ******************************************************************************
@@ -395,6 +396,8 @@ void AjouterCarteSousTas (struct adCarte *ac, Tas *T) {
 	ac->suiv = T->tete;
 	T->tete = T->tete->prec;
 	T->tete->prec = NULL;
+
+	T->HT ++;
 }
 
 /* ******************************************************************************
@@ -411,12 +414,10 @@ void DeplacerHautSur(Tas *T1, Tas *T2) {
   AC = T1->queue; 
   T1->queue = T1->queue->prec;
   T1->queue->suiv = NULL;
-  AC-> prec = T2->queue;
-  T2->queue->suiv =AC;
-  T2->queue = AC;
 
-  T1 -> HT = T1 ->HT-1;
-  T2 -> HT = T2 ->HT+1;
+  AjouterCarteSurTas (AC, T2);
+
+  T1 -> HT --;
 }
 
 /* ******************************************************************************
@@ -433,13 +434,10 @@ void DeplacerHautSous(Tas *T1, Tas *T2) {
   AC = T1->queue; 
   T1->queue = T1->queue->prec;
   T1->queue->suiv = NULL;
-  AC->suiv = T2->tete;
-  T2->tete->prec = AC;
-  AC->prec = NULL;
-  T2->tete = AC;
 
-  T1 -> HT = T1 ->HT-1;
-  T2 -> HT = T2 ->HT+1;
+	AjouterCarteSousTas (AC, T2);
+
+  T1 -> HT --;
 }
 
 /* ******************************************************************************
@@ -448,6 +446,14 @@ enlève la carte située au dessous de T1 et la place au dessus de T2.
 Pré-condition : T1 n'est pas vide, T2 est actif.
 ********************************************************************************* */
 void DeplacerBasSur(Tas *T1, Tas *T2) {
+	struct adCarte *AC;
+	AC = T1->tete ;
+	T1->tete = T1->tete->suiv ;
+	T1->tete->prec = NULL;
+
+	AjouterCarteSurTas(AC,T2);
+
+	T1->HT --;
 }
 
 /* ******************************************************************************
@@ -459,12 +465,11 @@ void DeplacerBasSous(Tas *T1, Tas *T2) {
 	struct adCarte *AC;
 	AC = T1->tete ;
 	T1->tete = T1->tete->suiv ;
-	T1->tete->prec = AC ;
-	AC->suiv = T2 ;
-	T2->tete->prec = AC ;
-	T2.tete = T2->tete->prec ;
-	T1->HT = T1->HT - 1 ;
-	T2->HT = T2->HT +1 ;
+	T1->tete->prec = NULL;
+
+	AjouterCarteSousTas(AC,T2);
+
+	T1->HT --;
 }
 
 /* ******************************************************************************
@@ -475,18 +480,18 @@ Pré-condition : T1 contient la carte et T2 est actif.
 void DeplacerCarteSur(Couleur C, Rang R, Tas *T1, Tas *T2) {
 	struct adCarte *AC;
 	AC = T1->tete;
-	while (T1->AC->elt.CC != C || T1->AC->elt.RC != R) {
+	while (AC->elt.CC != C || AC->elt.RC != R) {
 		AC=AC->suiv;
 	}
+
+	/*Dechainage de la carte*/
+	AC->suiv->prec = AC->prec;
+	AC->prec->suiv = AC->suiv;
+
+	AjouterCarteSurTas(AC, T2);
 	
-	T2->queue = AC ;
-	AC->prec->suiv = AC->suiv ;
-	AC->suiv->prec = AC->prec ;
-	AC->suiv = NULL ;
-	AC->prec = T2->queue ;
-	AC->prec->suiv = AC ;
-	T1->HT = T1->HT - 1 ;
-	T2->HT = T2->HT +1 ;
+	T1->HT --;
+	
 }
 
 /* ******************************************************************************
@@ -500,13 +505,13 @@ Cette opération ne modifie ni la visibilité des cartes, ni la localisation des t
 ni leur mode d'étalement.
 ********************************************************************************* */
 void PoserTasSurTas(Tas *T1, Tas *T2) {
-	T2->queue->suiv = T1.tete ;
+	T2->queue->suiv = T1->tete ;
 	T1->tete->prec = T2->queue ;
 	T2->queue = T1->queue ;
 	
 	T2->HT = T1->HT + T2->HT ;
 	
-	CreerTasVide(T1.LT, T1.MT, Tas *T1) ;
+	CreerTasVide(T1->LT, T1->MT, T1) ;
 }
 
 
