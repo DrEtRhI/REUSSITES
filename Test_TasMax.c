@@ -16,6 +16,21 @@ void Test_CouleurSuivante(){
  printf("\n\n");
 }
 
+void Test_RangSuivant(){
+ printf("**********************Test de RangSuivant*************************\n");
+ printf("Le rang suivant %d est %d\n", 2, RangSuivant(Deux));
+ printf("Le rang suivant %d est %d\n", 11, RangSuivant(Valet));
+ printf("Le rang suivant %d est %d\n", 13, RangSuivant(Dame));
+ printf("Le rang suivant %d est %d\n", 14, RangSuivant(As));
+}
+
+void Test_LeRang(){
+ printf("**********************Test de LeRang*************************\n");
+ struct adCarte carte1;
+ CreerCartepourtest(&carte1); 
+ printf("Le rang de carte1 est %d\n", LeRang((&carte1)->elt));
+}
+
 void Test_TasActif(){
  printf("************************Test de TasActif******************************\n");
  Tas T;
@@ -388,6 +403,8 @@ void Test_PoserTasSurTas(){
 
 int main () {
  Test_CouleurSuivante();
+ Test_RangSuivant();
+ Test_LeRang();
  Test_TasActif();
  Test_TasEmpile();
  Test_LaHauteur();
