@@ -129,13 +129,12 @@ void Test_TasEmpile(){
 }
 
 void Test_TasEtale(){
-printf("*************************Test de TasEtale******************************\n");
-	Tas T1, T2;
-	T1.MT = empile;
-	T2.MT = etale;
-	printf("Le Tas T1 est empile (doit etre 0): %d\n", TasEtale(T1));
-	printf("La Tas T2 est etale (doit etre 1): %d\n", TasEtale(T2));
-printf("\n\n");
+ printf("*************************Test de TasEtale******************************\n");
+ Tas T;
+ T.MT = empile;
+ printf("Le Tas est mis empile. TasEtale retourne (doit etre 0): %d\n", TasEtale(T));
+ printf("La Tas est mis etale. TasEtale retourne (doit etre 1): %d\n", TasEtale(T));
+ printf("\n\n");
 }
 
 void Test_LaHauteur(){
@@ -147,18 +146,18 @@ void Test_LaHauteur(){
 }
 
 void Test_LaPlace(){
-	printf("***********************Test de LaPlace*******************************\n");
-	Tas T1, T2;	
-	T1.LT.NC = 1;
-	T1.LT.NL = 1;
-	T2.LT.NC = 2;
-	T2.LT.NL = 2;
-	Localisation Loc1, Loc2;
-	Loc1 = LaPlace(T1);
-	Loc2 = LaPlace(T2);
-	printf("Localisation Tas T1 : %d . %d (doit etre 1 . 1)\n", Loc1.NC, Loc1.NL);
-	printf("Localisation Tas T2 : %d . %d (doit etre 2 . 2)\n", Loc2.NC, Loc2.NL);
-	printf("\n\n");
+ printf("***********************Test de LaPlace*******************************\n");
+ Tas T1, T2;	
+ T1.LT.NC = 1;
+ T1.LT.NL = 1;
+ T2.LT.NC = 2;
+ T2.LT.NL = 2;
+ Localisation Loc1, Loc2;
+ Loc1 = LaPlace(T1);
+ Loc2 = LaPlace(T2);
+ printf("Localisation Tas T1 : %d . %d (doit etre 1 . 1)\n", Loc1.NC, Loc1.NL);
+ printf("Localisation Tas T2 : %d . %d (doit etre 2 . 2)\n", Loc2.NC, Loc2.NL);
+ printf("\n\n");
 }
 
 void Test_CreerTasVide(){
@@ -229,10 +228,21 @@ void Test_RetournerCarteSous(){
 
 void Test_EmpilerTas(){
  printf("************************Test de EmpilerTas************************\n");
+ Tas T;
  T.MT = 1;
- printf("le tas est en mode etale: %d \n", T.MT);
+ printf("Avant opération, le tas est en mode etale. T.MT vaut: %d\n", T.MT);
  EmpilerTas(&T);
- printf("le tas est en mode etale: %d \n", T.MT);
+ printf("Apres opération, le tas doit etre empiler. T.MT vaut: %d (valeur attendue 0)\n", T.MT);
+ printf("\n\n");
+}
+
+void Test_EtalerTas(){
+ printf("************************Test de EtalerTas************************\n");
+ Tas T;
+ T.MT = 0;
+ printf("Avant opération, le tas est en mode empile. T.MT vaut: %d\n", T.MT);
+ EtalerTas(&T);
+ printf("Apres opération, le tas doit etre etaler. T.MT vaut: %d (valeur attendue 1)\n", T.MT);
  printf("\n\n");
 }
 
