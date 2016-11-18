@@ -4,7 +4,6 @@
 #include <stdio.h>
 
 void AfficheTaspourtest(Tas T);
-void Creertasdunecarte(Localisation L, Mode M, Tas *T);
 void CreerCartepourtest(struct adCarte *C);
 
 	
@@ -358,7 +357,7 @@ void Test_DeplacerHautSur(){
 
 
 
-void Test_DeplacerTasSurTas(){
+void Test_PoserTasSurTas(){
  printf("************************Test de DeplacerTasSurTas************************\n");
  Tas T1, T2;
  Localisation L1,L2;
@@ -400,7 +399,7 @@ int main () {
  Test_AjouterCarteSousTas();
  Test_DeplacerHautSous();
  Test_DeplacerHautSur();
- Test_DeplacerTasSurTas();
+ Test_PoserTasSurTas();
 }
 
 
