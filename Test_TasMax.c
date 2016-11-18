@@ -704,7 +704,29 @@ void Test_DeplacerBasSous(){
 }
 
 
-
+void Test_DeplacerCarteSur(){
+ printf("************************Test de DeplacerCarteSur************************\n");
+ Localisation L1, L2;
+ Tas T1, T2; 
+ L1.NC=1;
+ L1.NL=1;
+ L2.NC=2;
+ L2.NL=2;
+ 
+ CreerJeuNeuf(32, L1, &T1);
+ CreerTasVide(L2, empile, &T2);
+ printf("Tas source avant operation. Sa hauteur est %d\n\n", T1.HT);
+ AfficheTaspourtest(T1);
+ printf("Tas destination avant operation. Sa hauteur est %d\n\n", T2.HT);
+ AfficheTaspourtest(T2);
+ printf("Deplacement de la carte de couleur 2 et de rang 10\n");
+ DeplacerCarteSur(2,10,&T1,&T2);
+ 
+ printf("Tas source apres operation. Sa hauteur est %d\n\n", T1.HT);
+ AfficheTaspourtest(T1);
+ printf("Tas destination apres operation. Sa hauteur est %d\n\n", T2.HT);
+ AfficheTaspourtest(T2);
+}
 
 void Test_PoserTasSurTas(){
  printf("************************Test de DeplacerTasSurTas************************\n");
@@ -762,9 +784,10 @@ int main () {
  Test_AjouterCarteSousTas();
  Test_DeplacerHautSous();
  Test_DeplacerHautSur();
- Test_PoserTasSurTas();
  Test_DeplacerBasSur();
  Test_DeplacerBasSous();
+ Test_PoserTasSurTas();
+ Test_DeplacerCarteSur();
 }
 
 
