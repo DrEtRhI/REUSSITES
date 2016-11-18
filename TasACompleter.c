@@ -425,11 +425,13 @@ void DeplacerHautSur(Tas *T1, Tas *T2) {
  */
   struct adCarte *AC;
   AC = T1->queue; 
-  T1->queue = T1->queue->prec;
+  if (AC != T1->tete) 
+    {T1->queue = T1->queue->prec;
+    }
   T1->queue->suiv = NULL;
 
   AjouterCarteSurTas (AC, T2);
-
+  
   T1 -> HT --;
 }
 
@@ -445,7 +447,9 @@ void DeplacerHautSous(Tas *T1, Tas *T2) {
  */
   struct adCarte *AC;
   AC = T1->queue; 
-  T1->queue = T1->queue->prec;
+  if (AC != T1->tete) 
+    {T1->queue = T1->queue->prec;
+    }
   T1->queue->suiv = NULL;
 
 	AjouterCarteSousTas (AC, T2);

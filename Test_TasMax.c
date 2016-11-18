@@ -109,21 +109,51 @@ RetournerTas(&MCT_T8);
 AfficheTaspourtest(MCT_T8);
 
 printf("************************Test de AjouterCarteSurTas************************\n");
+printf("*****Ajout de carte sur tas non vide*****");
 Tas MCT_T9;
 Localisation MCT_Loc9;
 MCT_Loc9.NL = 1;
 MCT_Loc9.NC = 3;
-struct adCarte* uneCarte;
-uneCarte = (struct adCarte*) malloc (sizeof(struct adCarte));
-uneCarte->elt.CC = 3;
-uneCarte->elt.VC = Decouverte;
-uneCarte->elt.RC = 5;
+struct adCarte* MCT_C1;
+MCT_C1 = (struct adCarte*) malloc (sizeof(struct adCarte));
+MCT_C1->elt.CC = 3;
+MCT_C1->elt.VC = Decouverte;
+MCT_C1->elt.RC = 5;
+MCT_C1->suiv =NULL;
+MCT_C1->prec =NULL;
 
 CreerJeuNeuf(32, MCT_Loc9, &MCT_T9);
-AjouterCarteSousTas(uneCarte,&MCT_T9);
+AjouterCarteSurTas(MCT_C1,&MCT_T9);
 AfficheTaspourtest(MCT_T9);
+printf("Sa hauteur est %d \n",MCT_T9.HT);
+
+printf("*****Ajout de carte sur tas vide*****\n");
+Tas MCT_T92;
+Localisation MCT_Loc92;
+MCT_Loc92.NL = 1;
+MCT_Loc92.NC = 3;
+
+struct adCarte* MCT_C2;
+MCT_C2 = (struct adCarte*) malloc (sizeof(struct adCarte));
+MCT_C2->elt.CC = 3;
+MCT_C2->elt.VC = Decouverte;
+MCT_C2->elt.RC = 5;
+MCT_C2->suiv =NULL;
+MCT_C2->prec =NULL;
+
+CreerTasVide(MCT_Loc92, empile, &MCT_T92);
+printf("avant operation:\n");
+AfficheTaspourtest(MCT_T92);
+AjouterCarteSurTas(MCT_C2,&MCT_T92);
+printf("apres operation:\n");
+AfficheTaspourtest(MCT_T92);
+printf("Sa hauteur est %d \n",MCT_T92.HT);
+
+
 
 /* tests fonction DeplacerHautSur */
+
+
 printf("************************Test de deplacerHautSous************************\n");
 Localisation MCT_L2, MCT_L3;
 Tas MCT_T2, MCT_T3;
@@ -168,6 +198,7 @@ printf("**********************************************************************\n
 
 /* tests fonction DeplacerHautSous */
 printf("************************Test de deplacerHautSur************************\n");
+printf("*******d'un jeu neuf vers un tas vide\n******");
 Localisation MCT_L4, MCT_L5;
 Tas MCT_T4, MCT_T5;
 L.NC=1;
@@ -187,9 +218,8 @@ MCT_pcarte2->suiv = NULL;
 MCT_T5.tete = MCT_pcarte2;
 MCT_T5.queue = MCT_pcarte2;
 MCT_T5.HT=1;
-/* fin*/
 
-/*Affichage tas */
+
 printf("Tas source avant operation. Sa hauteur est %d\n\n", MCT_T4.HT);
 AfficheTaspourtest(MCT_T4);
 printf("Tas destination avant operation. Sa hauteur est %d\n\n", MCT_T5.HT);
@@ -197,14 +227,41 @@ AfficheTaspourtest(MCT_T5);
 
 DeplacerHautSur(&MCT_T4,&MCT_T5);
 
-/*DeplacerCarteSur(Coeur, 10,&MCT_T4,&MCT_T5);*/
-
-/*Affichage tas */
-
 printf("Tas source apres operation. Sa hauteur est %d\n\n", MCT_T4.HT);
 AfficheTaspourtest(MCT_T4);
 printf("Tas destination apres operation. Sa hauteur est %d \n\n", MCT_T5.HT);
 AfficheTaspourtest(MCT_T5);
+
+printf("d'une tas de une carte vers tas vide\n");
+/*creation tas source de 1 carte et tas destination vide*/
+Tas MCT_T12, MCT_T13;
+CreerTasVide(L, empile, &MCT_T12);
+CreerTasVide(L, empile, &MCT_T13);
+struct adCarte *MCT_C12;
+MCT_C12 = (struct adCarte *) malloc (sizeof(struct adCarte));
+MCT_C12->elt.CC = 1;
+MCT_C12->elt.VC = 1;
+MCT_C12->elt.RC = 1;
+MCT_C12->prec = NULL;
+MCT_C12->suiv = NULL;
+
+MCT_T12.tete = MCT_C12;
+MCT_T12.queue = MCT_C12;
+MCT_T12.HT=1;
+
+printf("Tas source avant operation. Sa hauteur est %d\n\n", MCT_T12.HT);
+AfficheTaspourtest(MCT_T12);
+printf("Tas destination avant operation. Sa hauteur est %d\n\n", MCT_T13.HT);
+AfficheTaspourtest(MCT_T13);
+
+DeplacerHautSur(&MCT_T12,&MCT_T13);
+
+printf("Tas source apres operation. Sa hauteur est %d\n\n", MCT_T12.HT);
+AfficheTaspourtest(MCT_T12);
+printf("Tas destination apres operation. Sa hauteur est %d \n\n", MCT_T13.HT);
+AfficheTaspourtest(MCT_T13);
+
+
 
 printf("************************Test de DeplacerTasSurTas************************\n");
 
