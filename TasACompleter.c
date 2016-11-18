@@ -112,7 +112,7 @@ booleen EstCarteAvant(Carte C1, Carte C2) {
 
 booleen TasActif(Tas T) {
 
-	return T.RT;
+	return T.RT == actif;
 }
 
 booleen TasVide(Tas T) {
@@ -122,7 +122,7 @@ booleen TasVide(Tas T) {
 
 booleen TasEmpile(Tas T) {
 
-	return T.MT;
+	return T.MT == empile;
 }
 
 booleen TasEtale(Tas T) {
@@ -426,9 +426,13 @@ void DeplacerHautSur(Tas *T1, Tas *T2) {
   struct adCarte *AC;
   AC = T1->queue; 
   if (AC != T1->tete) 
-    {T1->queue = T1->queue->prec;
-    }
-  T1->queue->suiv = NULL;
+  {T1->queue = T1->queue->prec;
+		 T1->queue->suiv = NULL;
+  }else {
+	T1->tete = NULL;
+	T1->queue = NULL;	
+	}
+  
 
   AjouterCarteSurTas (AC, T2);
   
@@ -448,9 +452,13 @@ void DeplacerHautSous(Tas *T1, Tas *T2) {
   struct adCarte *AC;
   AC = T1->queue; 
   if (AC != T1->tete) 
-    {T1->queue = T1->queue->prec;
-    }
-  T1->queue->suiv = NULL;
+  {
+	T1->queue = T1->queue->prec;
+	T1->queue->suiv = NULL;  
+	}else{
+	T1->tete = NULL;
+	T1->queue = NULL;
+	}
 
 	AjouterCarteSousTas (AC, T2);
 
@@ -522,7 +530,7 @@ Cette opération ne modifie ni la visibilité des cartes, ni la localisation des t
 ni leur mode d'étalement.
 ********************************************************************************* */
 void PoserTasSurTas(Tas *T1, Tas *T2) {
-	
+
 	if(T2->queue != NULL && T1->tete != NULL){			/*Si T2->queue == NULL ou T1->tete == NULL, cela signifie qu'ils sont vides (tete ou queue)*/
 		T2->queue->suiv = T1->tete ;
 		T1->tete->prec = T2->queue ;
@@ -535,6 +543,7 @@ void PoserTasSurTas(Tas *T1, Tas *T2) {
 	T1->HT = 0;
 	T1->tete = NULL;
 	T1->queue = NULL;
+		
 }
 
 

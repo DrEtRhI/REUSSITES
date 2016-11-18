@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Programme principal */
-
+#include "Alea.h"
 #include "QLL.h"
 #include "InteractionQLL.h"
 
