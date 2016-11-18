@@ -194,7 +194,7 @@ void CreerJeuNeuf(int N, Localisation L, Tas *T) {
   /*chainage de la queue*/
 	T->queue = T->tete;
 
-	for (Co; Co <= DerniereCouleur; Co ++){
+	for (Co = PremiereCouleur; Co <= DerniereCouleur; Co ++){
 		for (i = PremierRang; i <= DernierRang; i++){
 
 				/*Création et initialisation de la ième carte*/
