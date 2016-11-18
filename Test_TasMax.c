@@ -346,6 +346,7 @@ void Test_DeplacerHautSous(){
  printf("\n\n");
 }
 
+
 void Test_DeplacerHautSur(){
  printf("************************Test de deplacerHautSur************************\n");
  Localisation L1, L2;
@@ -434,7 +435,181 @@ void Test_DeplacerHautSur(){
  printf("\n\n");
 }
 
+void Test_DeplacerBasSur(){
+ printf("************************Test de DeplacerBasSur************************\n");
+ Localisation L1, L2;
+ Tas T1, T2; 
+ L1.NC=1;
+ L1.NL=1;
+ L2.NC=2;
+ L2.NL=2;
 
+
+ printf("Cas 1: Tas source (plusieurs cartes), Tas dest (vide)\n");
+ CreerJeuNeuf(32, L1, &T1);
+ CreerTasVide(L2, empile, &T2);
+ 
+ printf("Tas source avant operation. Sa hauteur est %d\n\n", T1.HT);
+ AfficheTaspourtest(T1);
+ printf("Tas destination avant operation. Sa hauteur est %d\n\n", T2.HT);
+ AfficheTaspourtest(T2);
+
+ DeplacerBasSur(&T1,&T2);
+
+ printf("Tas source apres operation. Sa hauteur est %d\n\n", T1.HT);
+ AfficheTaspourtest(T1);
+ printf("Tas destination apres operation. Sa hauteur est %d \n\n", T2.HT);
+ AfficheTaspourtest(T2);
+ printf("\n\n");
+ 
+ printf("Cas 2: Tas source (1 seule carte), Tas dest (vide)\n");
+ Localisation L3, L4;
+ Tas T3, T4; 
+ struct adCarte carte1;
+ L3.NC=3;
+ L3.NL=3;
+ L4.NC=4;
+ L4.NL=4;
+ 
+ /*T3: tas source d'une carte*/
+ CreerTasVide(L3, empile, &T3); 
+ CreerCartepourtest(&carte1);
+ AjouterCarteSurTas(&carte1,&T3);
+ 
+ /*T4: tas destination */
+ CreerTasVide(L4, empile, &T4); 
+ 
+ printf("Tas source avant operation. Sa hauteur est %d\n\n", T3.HT);
+ AfficheTaspourtest(T3);
+ printf("Tas destination avant operation. Sa hauteur est %d\n\n", T4.HT);
+ AfficheTaspourtest(T4);
+
+ DeplacerBasSur(&T3,&T4);
+
+ printf("Tas source apres operation. Sa hauteur est %d\n\n", T3.HT);
+ AfficheTaspourtest(T3);
+ printf("Tas destination apres operation. Sa hauteur est %d \n\n", T4.HT);
+ AfficheTaspourtest(T4);
+ printf("\n\n");
+ 
+ printf("Cas 3: Tas source (1 seule carte), Tas dest (plusieurs cartes)\n");
+ Localisation L5, L6;
+ Tas T5, T6; 
+ struct adCarte carte2;
+ L5.NC=3;
+ L5.NL=3;
+ L6.NC=4;
+ L6.NL=4;
+ 
+ /*T5: tas source d'une carte*/
+ CreerTasVide(L5, empile, &T5); 
+ CreerCartepourtest(&carte2);
+ AjouterCarteSurTas(&carte2,&T5);
+ 
+ /*T6: tas destination */
+ CreerJeuNeuf(32, L6, &T6);
+ 
+ printf("Tas source avant operation. Sa hauteur est %d\n\n", T5.HT);
+ AfficheTaspourtest(T5);
+ printf("Tas destination avant operation. Sa hauteur est %d\n\n", T6.HT);
+ AfficheTaspourtest(T6);
+
+ DeplacerBasSur(&T5,&T6);
+
+ printf("Tas source apres operation. Sa hauteur est %d\n\n", T5.HT);
+ AfficheTaspourtest(T5);
+ printf("Tas destination apres operation. Sa hauteur est %d \n\n", T6.HT);
+ AfficheTaspourtest(T6);
+ printf("\n\n");
+}
+
+void Test_DeplacerBasSous(){
+ printf("************************Test de DeplacerBasSous************************\n");
+ Localisation L1, L2;
+ Tas T1, T2; 
+ L1.NC=1;
+ L1.NL=1;
+ L2.NC=2;
+ L2.NL=2;
+
+
+ printf("Cas 1: Tas source (plusieurs cartes), Tas dest (vide)\n");
+ CreerJeuNeuf(32, L1, &T1);
+ CreerTasVide(L2, empile, &T2);
+ 
+ printf("Tas source avant operation. Sa hauteur est %d\n\n", T1.HT);
+ AfficheTaspourtest(T1);
+ printf("Tas destination avant operation. Sa hauteur est %d\n\n", T2.HT);
+ AfficheTaspourtest(T2);
+
+ DeplacerBasSous(&T1,&T2);
+
+ printf("Tas source apres operation. Sa hauteur est %d\n\n", T1.HT);
+ AfficheTaspourtest(T1);
+ printf("Tas destination apres operation. Sa hauteur est %d \n\n", T2.HT);
+ AfficheTaspourtest(T2);
+ printf("\n\n");
+ 
+ printf("Cas 2: Tas source (1 seule carte), Tas dest (vide)\n");
+ Localisation L3, L4;
+ Tas T3, T4; 
+ struct adCarte carte1;
+ L3.NC=3;
+ L3.NL=3;
+ L4.NC=4;
+ L4.NL=4;
+ 
+ /*T3: tas source d'une carte*/
+ CreerTasVide(L3, empile, &T3); 
+ CreerCartepourtest(&carte1);
+ AjouterCarteSurTas(&carte1,&T3);
+ 
+ /*T4: tas destination */
+ CreerTasVide(L4, empile, &T4); 
+ 
+ printf("Tas source avant operation. Sa hauteur est %d\n\n", T3.HT);
+ AfficheTaspourtest(T3);
+ printf("Tas destination avant operation. Sa hauteur est %d\n\n", T4.HT);
+ AfficheTaspourtest(T4);
+
+ DeplacerBasSous(&T3,&T4);
+
+ printf("Tas source apres operation. Sa hauteur est %d\n\n", T3.HT);
+ AfficheTaspourtest(T3);
+ printf("Tas destination apres operation. Sa hauteur est %d \n\n", T4.HT);
+ AfficheTaspourtest(T4);
+ printf("\n\n");
+ 
+ printf("Cas 3: Tas source (1 seule carte), Tas dest (plusieurs cartes)\n");
+ Localisation L5, L6;
+ Tas T5, T6; 
+ struct adCarte carte2;
+ L5.NC=3;
+ L5.NL=3;
+ L6.NC=4;
+ L6.NL=4;
+ 
+ /*T5: tas source d'une carte*/
+ CreerTasVide(L5, empile, &T5); 
+ CreerCartepourtest(&carte2);
+ AjouterCarteSurTas(&carte2,&T5);
+ 
+ /*T6: tas destination */
+ CreerJeuNeuf(32, L6, &T6);
+ 
+ printf("Tas source avant operation. Sa hauteur est %d\n\n", T5.HT);
+ AfficheTaspourtest(T5);
+ printf("Tas destination avant operation. Sa hauteur est %d\n\n", T6.HT);
+ AfficheTaspourtest(T6);
+
+ DeplacerBasSous(&T5,&T6);
+
+ printf("Tas source apres operation. Sa hauteur est %d\n\n", T5.HT);
+ AfficheTaspourtest(T5);
+ printf("Tas destination apres operation. Sa hauteur est %d \n\n", T6.HT);
+ AfficheTaspourtest(T6);
+ printf("\n\n");
+}
 
 
 
@@ -492,6 +667,8 @@ int main () {
  Test_DeplacerHautSous();
  Test_DeplacerHautSur();
  Test_PoserTasSurTas();
+ Test_DeplacerBasSur();
+ Test_DeplacerBasSous();
 }
 
 

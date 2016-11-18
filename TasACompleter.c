@@ -471,14 +471,22 @@ enlève la carte située au dessous de T1 et la place au dessus de T2.
 Pré-condition : T1 n'est pas vide, T2 est actif.
 ********************************************************************************* */
 void DeplacerBasSur(Tas *T1, Tas *T2) {
-	struct adCarte *AC;
-	AC = T1->tete ;
-	T1->tete = T1->tete->suiv ;
-	T1->tete->prec = NULL;
+ struct adCarte *AC;
+ AC = T1->tete ;
+	
+ if(T1->tete != T1->queue) {
+  T1->tete = T1->tete->suiv;
+  AC->suiv =NULL;
+  T1->tete->prec = NULL;
+  }
+ else{
+  T1->tete = NULL;
+  T1->queue = NULL;
+  }
 
-	AjouterCarteSurTas(AC,T2);
+ AjouterCarteSurTas(AC,T2);
 
-	T1->HT --;
+ T1->HT --;
 }
 
 /* ******************************************************************************
@@ -487,14 +495,22 @@ enlève la carte située au dessous de T1 et la place au dessous de T2.
 Pré-condition : T1 n'est pas vide, T2 est actif.
 ********************************************************************************* */
 void DeplacerBasSous(Tas *T1, Tas *T2) {
-	struct adCarte *AC;
-	AC = T1->tete ;
-	T1->tete = T1->tete->suiv ;
-	T1->tete->prec = NULL;
+ struct adCarte *AC;
+ AC = T1->tete ;
+ 
+ if(T1->tete != T1->queue) {
+  T1->tete = T1->tete->suiv;
+  AC->suiv =NULL;
+  T1->tete->prec = NULL;
+  }
+ else {
+  T1->tete = NULL;
+  T1->queue = NULL;
+  }
+ 
+ AjouterCarteSousTas(AC,T2);
 
-	AjouterCarteSousTas(AC,T2);
-
-	T1->HT --;
+ T1->HT --;
 }
 
 /* ******************************************************************************
