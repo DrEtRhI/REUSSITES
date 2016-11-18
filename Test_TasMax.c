@@ -167,6 +167,85 @@ void Test_CreerTasVide(){
  printf("\n\n");
 }
 
+void Test_IemeCarte(){
+ printf("************************Test de IemeCarte************************\n");
+ Tas T;
+ Localisation L;
+
+ L.NL = 1;
+ L.NC = 3;
+ 
+ CreerJeuNeuf(32, L, &T);
+ int i;
+ i=21;
+ AfficheTaspourtest(T);
+ printf("la 21eme carte du tas (couleur,rang,visibilite) est: %d, %d, %d\n",IemeCarte(T,i).CC, IemeCarte(T,i).RC, IemeCarte(T,i).VC);
+ IemeCarte(T,i);
+}
+ 
+void Test_RetournerCarteSur(){
+ printf("************************Test de RetournerCarteSur************************\n");
+ Tas T;
+ Localisation L;
+
+ L.NL = 1;
+ L.NC = 3;
+ 
+ CreerJeuNeuf(32, L, &T);
+ printf("la carte sur le tas a la visibilite %d\n",T.queue->elt.VC);
+ printf("l'avant derniere carte du tas a la visibilite %d\n",T.queue->prec->elt.VC);
+ RetournerCarteSur(&T);
+ printf("la carte sous le tas a la visibilite %d\n",T.queue->elt.VC);
+ printf("l'avant derniere carte du tas a la visibilite %d\n",T.queue->prec->elt.VC);
+ printf("\n\n");
+}
+
+void Test_RetournerCarteSous(){
+ printf("************************Test de RetournerCarteSous************************\n");
+ Tas T;
+ Localisation L;
+
+ L.NL = 1;
+ L.NC = 3;
+ 
+ CreerJeuNeuf(32, L, &T);
+ printf("la carte sous le tas a la visibilite %d\n",T.tete->elt.VC);
+ printf("la 2e carte du tas a la visibilite %d\n",T.tete->suiv->elt.VC);
+ RetournerCarteSous(&T);
+ printf("la carte sous le tas a la visibilite %d\n",T.tete->elt.VC);
+ printf("la 2e carte du tas a la visibilite %d\n",T.tete->suiv->elt.VC);
+ printf("\n\n");
+}
+
+void Test_EmpilerTas(){
+ printf("************************Test de EmpilerTas************************\n");
+ Tas T;
+ Localisation L;
+
+ L.NL = 1;
+ L.NC = 3;
+ CreerJeuNeuf(32, L, &T);
+ T.MT = 1;
+ printf("le tas est en mode etale: %d \n", T.MT);
+ EmpilerTas(&T);
+ printf("le tas est en mode etale: %d \n", T.MT);
+ printf("\n\n");
+}
+
+void Test_EtalerTas(){
+ printf("************************Test de EtalerTas************************\n");
+ Tas T;
+ Localisation L;
+
+ L.NL = 1;
+ L.NC = 3;
+ CreerJeuNeuf(32, L, &T);
+ printf("le tas est en mode etale: %d \n", T.MT);
+ EtalerTas(&T);
+ printf("le tas est en mode etale: %d \n", T.MT);
+ printf("\n\n");
+}
+
 void Test_EchangerCarte(){
  printf("************************Test de EchangerCarte************************\n");
  Tas T;
@@ -510,6 +589,11 @@ int main () {
  Test_LaHauteur();
  Test_LaPlace();
  Test_CreerTasVide();
+ Test_IemeCarte();
+ Test_RetournerCarteSur();
+ Test_RetournerCarteSous();
+ Test_EmpilerTas();
+ Test_EtalerTas();
  Test_EchangerCarte();
  Test_BattreTas();
  Test_RetournerTas();
