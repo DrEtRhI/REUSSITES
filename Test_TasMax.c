@@ -5,6 +5,7 @@
 
 void AfficheTaspourtest(Tas T);
 void CreerCartepourtest(struct adCarte *C);
+void CreerCartepourtest2(struct adCarte *C);
 
 	
 void Test_CouleurSuivante(){
@@ -28,7 +29,73 @@ void Test_LeRang(){
  printf("**********************Test de LeRang*************************\n");
  struct adCarte carte1;
  CreerCartepourtest(&carte1); 
- printf("Le rang de carte1 est %d\n", LeRang((&carte1)->elt));
+ printf("Le rang de carte1: %d est %d\n",(&carte1)->elt.RC, LeRang((&carte1)->elt));
+}
+
+void Test_LaCouleur(){
+ printf("**********************Test de LaCouleur*************************\n");
+ struct adCarte carte1;
+ CreerCartepourtest(&carte1); 
+ printf("La couleur de carte1: %d est %d\n",(&carte1)->elt.CC, LaCouleur((&carte1)->elt));
+}
+
+void Test_EstCachee(){
+ printf("**********************Test de EstCachee*************************\n");
+ struct adCarte carte1;
+ CreerCartepourtest(&carte1); 
+ printf("La carte1 est cachee: %d resultat: %d\n",!(&carte1)->elt.VC, EstCachee((&carte1)->elt));
+}
+
+void Test_EstDecouverte(){
+ printf("**********************Test de EstCachee*************************\n");
+ struct adCarte carte1;
+ CreerCartepourtest(&carte1); 
+ printf("La carte1 est decouverte %d resultat %d\n",(&carte1)->elt.VC, EstDecouverte((&carte1)->elt));
+}
+
+void Test_RangInferieur(){
+ printf("**********************Test de RangInferieur*************************\n");
+ struct adCarte carte1;
+ struct adCarte carte2;
+ CreerCartepourtest(&carte1);
+ CreerCartepourtest2(&carte2); 
+ printf("rang de la carte1 :%d rang de la carte 2:%d resultat : %d\n",(&carte1)->elt.RC, (&carte2)->elt.RC,RangInferieur((&carte1)->elt,(&carte2)->elt));
+}
+
+void Test_MemeRang(){
+ printf("**********************Test de MemeRang*************************\n");
+ struct adCarte carte1;
+ struct adCarte carte2;
+ CreerCartepourtest(&carte1);
+ CreerCartepourtest2(&carte2); 
+ printf("rang de la carte1 :%d rang de la carte 2:%d resultat : %d\n",(&carte1)->elt.RC, (&carte2)->elt.RC,MemeRang((&carte1)->elt,(&carte2)->elt));
+}
+
+void Test_CouleurInferieure(){
+ printf("**********************Test de CouleurInferieure*************************\n");
+ struct adCarte carte1;
+ struct adCarte carte2;
+ CreerCartepourtest(&carte1);
+ CreerCartepourtest2(&carte2); 
+ printf("couleur de la carte1 :%d couleur de la carte 2:%d resultat : %d\n",(&carte1)->elt.CC, (&carte2)->elt.CC,CouleurInferieure((&carte1)->elt,(&carte2)->elt));
+}
+
+void Test_MemeCouleur(){
+ printf("**********************Test de MemeCouleur*************************\n");
+ struct adCarte carte1;
+ struct adCarte carte2;
+ CreerCartepourtest(&carte1);
+ CreerCartepourtest2(&carte2); 
+ printf("couleur de la carte1 :%d couleur de la carte 2:%d resultat : %d\n",(&carte1)->elt.CC, (&carte2)->elt.CC,MemeCouleur((&carte1)->elt,(&carte2)->elt));
+}
+
+void Test_EstCarteAvant(){
+ printf("**********************Test de EstCarteAvant*************************\n");
+ struct adCarte carte1;
+ struct adCarte carte2;
+ CreerCartepourtest(&carte1);
+ CreerCartepourtest2(&carte2); 
+ printf("rang,couleur de la carte1 :%d %d rang,couleur de la carte 2:%d %d resultat : %d\n",(&carte1)->elt.RC, (&carte1)->elt.CC, (&carte2)->elt.RC, (&carte2)->elt.CC, EstCarteAvant((&carte1)->elt,(&carte2)->elt));
 }
 
 void Test_TasActif(){
@@ -405,6 +472,14 @@ int main () {
  Test_CouleurSuivante();
  Test_RangSuivant();
  Test_LeRang();
+ Test_LaCouleur();
+ Test_EstCachee();
+ Test_EstDecouverte();
+ Test_RangInferieur();
+ Test_MemeRang();
+ Test_CouleurInferieure();
+ Test_MemeCouleur();
+ Test_EstCarteAvant();
  Test_TasActif();
  Test_TasEmpile();
  Test_LaHauteur();
@@ -447,4 +522,10 @@ void CreerCartepourtest(struct adCarte *C){
  C->suiv =NULL;
  C->prec =NULL;
 }
-
+void CreerCartepourtest2(struct adCarte *C){ 
+ C->elt.CC = 2;
+ C->elt.VC = Cachee;
+ C->elt.RC = 12;
+ C->suiv =NULL;
+ C->prec =NULL;
+}
