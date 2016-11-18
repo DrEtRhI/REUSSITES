@@ -112,9 +112,9 @@ void Test_TasActif(){
  printf("************************Test de TasActif******************************\n");
  Tas T;
  T.RT = actif;
- printf("Le tas est mis actif. TasActif vaut %d\n", TasActif(T));
+ printf("Le tas est mis actif. TasActif retourne %d (valeur attendue: 1)\n", TasActif(T));
  T.RT = inactif;
- printf("Le tas est mis inactif. TasActif vaut %d\n", TasActif(T));
+ printf("Le tas est mis inactif. TasActif retourne %d (valeur attendue: 0)\n", TasActif(T));
  printf("\n\n");
 }
 
@@ -122,9 +122,9 @@ void Test_TasEmpile(){
  printf("************************Test de TasEmpile*****************************\n");
  Tas T;
  T.MT = empile;
- printf("Le tas est mis empile. TasEmpile vaut %d\n", TasEmpile(T));
+ printf("Le tas est mis empile. TasEmpile retourne: %d (valeure attendue: 1)\n", TasEmpile(T));
  T.MT = etale;
- printf("Le tas est mis etale. TasEmpile vaut %d\n", TasEmpile(T));
+ printf("Le tas est mis etale. TasEmpile retourne: %d (valeure attendue: 0)\n", TasEmpile(T));
  printf("\n\n");
 }
 
@@ -133,6 +133,7 @@ void Test_TasEtale(){
  Tas T;
  T.MT = empile;
  printf("Le Tas est mis empile. TasEtale retourne (doit etre 0): %d\n", TasEtale(T));
+ T.MT = etale;
  printf("La Tas est mis etale. TasEtale retourne (doit etre 1): %d\n", TasEtale(T));
  printf("\n\n");
 }
@@ -190,6 +191,7 @@ void Test_IemeCarte(){
  AfficheTaspourtest(T);
  printf("la 21eme carte du tas (couleur,rang,visibilite) est: %d, %d, %d\n",IemeCarte(T,i).CC, IemeCarte(T,i).RC, IemeCarte(T,i).VC);
  IemeCarte(T,i);
+printf("\n\n");
 }
  
 void Test_RetournerCarteSur(){
@@ -363,10 +365,13 @@ void Test_RetournerTas(){
  L.NC = 3;
 
  CreerJeuNeuf(32, L, &T);
+ printf("On part d'un jeu neuf:\n");
  AfficheTaspourtest(T);
  RetournerTas(&T);
+ printf("Apres retournement du tas on obtient:\n");
  AfficheTaspourtest(T);
  RetournerTas(&T);
+ printf("Apres 2eme retournement, on doit revenir au point de départ:\n")
  AfficheTaspourtest(T);
  printf("\n\n");
 }
