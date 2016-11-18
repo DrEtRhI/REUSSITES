@@ -171,8 +171,69 @@ void Test_SupprimerTasVide(){
  printf("Le role du tas apres operation est : %d\n",T.RT);
  printf("Sa location est: %d,%d\n",T.LT.NC, T.LT.NL);
  AfficheTaspourtest(T);
+ printf("\n\n");
 }
 
+void Test_CreerJeuNeuf(){
+ printf("************************Test de CreeJeuNeuf***************************\n");
+ 
+ printf("Cas 1 : Jeu de 32 cartes\n");
+ Tas T1;
+ Localisation L1;
+
+ L1.NL = 1;
+ L1.NC = 3;
+ CreerJeuNeuf(32, L1, &T1);
+ 
+ printf("La position du tas est %d,%d (doit etre 3,1)\n", T1.LT.NC, T1.LT.NL);
+ printf("Le mode du tas est %d (doit etre 0)\n", T1.MT);
+ printf("La visibilite des cartes doit etre cachee (=0), voir ci-dessous\n");
+ printf("NbCartes vaut (doit etre 32) : %d \n", NbCartes);
+ printf("PremierRang vaut (doit etre 7) : %d \n", PremierRang);
+ AfficheTaspourtest(T1);
+ 
+ printf("Cas 2 : Jeu de 52 cartes\n");
+ Tas T2;
+ Localisation L2;
+
+ L2.NL = 1;
+ L2.NC = 3;
+ CreerJeuNeuf(52, L2, &T2);
+ 
+ printf("La position du tas est %d,%d (doit etre 3,1)\n", T2.LT.NC, T2.LT.NL);
+ printf("Le mode du tas est %d (doit etre 0)\n", T2.MT);
+ printf("La visibilite des cartes doit etre cachee (=0), voir ci-dessous\n");
+ printf("NbCartes vaut (doit etre 32) : %d \n", NbCartes);
+ printf("PremierRang vaut (doit etre 7) : %d \n", PremierRang);
+ AfficheTaspourtest(T2);
+ printf("\n\n");
+}
+
+void Test_CarteSur(){
+ printf("************************Test de CarteSur***************************\n");
+ Tas T;
+ Localisation L;
+
+ L.NL = 1;
+ L.NC = 3;
+ CreerJeuNeuf(32, L, &T);
+ 
+ printf("Info sur la carte qui est sur le tas (jeu neuf de 32 cartes): sa couleur: %d, son rang: %d, sa visibilite: %d.\n", CarteSur(T).CC, CarteSur(T).RC, CarteSur(T).VC);
+ printf("\n\n");
+}
+
+void Test_CarteSous(){
+ printf("************************Test de CarteSous***************************\n");
+ Tas T;
+ Localisation L;
+
+ L.NL = 1;
+ L.NC = 3;
+ CreerJeuNeuf(32, L, &T);
+ 
+ printf("Info sur la carte qui est sous le tas (jeu neuf de 32 cartes): sa couleur: %d, son rang: %d, sa visibilite: %d.\n", CarteSous(T).CC, CarteSous(T).RC, CarteSous(T).VC);
+ printf("\n\n");
+}
 
 void Test_EchangerCarte(){
  printf("************************Test de EchangerCarte************************\n");
@@ -691,6 +752,9 @@ int main () {
  Test_LaHauteur();
  Test_CreerTasVide();
  Test_SupprimerTasVide();
+ Test_CreerJeuNeuf();
+ Test_CarteSur();
+ Test_CarteSous();
  Test_EchangerCarte();
  Test_BattreTas();
  Test_RetournerTas();
@@ -705,7 +769,7 @@ int main () {
 
 
 
-/* fonctions creer pour faciliter les tests, utiliser ici seulement*/
+/* fonctions creer pour faciliter les tests, a utiliser ici seulement*/
 void AfficheTaspourtest(Tas T){
   struct adCarte *AC;
   AC = T.queue;
