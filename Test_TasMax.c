@@ -118,6 +118,16 @@ void Test_TasEmpile(){
  printf("\n\n");
 }
 
+void Test_TasEtale(){
+printf("*************************Test de TasEtale******************************\n");
+	Tas T1, T2;
+	T1.MT = empile;
+	T2.MT = etale;
+	printf("Le Tas T1 est empile (doit etre 0): %d\n", TasEtale(T1));
+	printf("La Tas T2 est etale (doit etre 1): %d\n", TasEtale(T2));
+printf("\n\n");
+}
+
 void Test_LaHauteur(){
  printf("************************Test de LaHauteur*****************************\n");
  Tas T;
@@ -126,6 +136,20 @@ void Test_LaHauteur(){
  printf("\n\n");
 }
 
+void Test_LaPlace(){
+	printf("***********************Test de LaPlace*******************************\n");
+	Tas T1, T2;	
+	T1.LT.NC = 1;
+	T1.LT.NL = 1;
+	T2.LT.NC = 2;
+	T2.LT.NL = 2;
+	Localisation Loc1, Loc2;
+	Loc1 = LaPlace(T1);
+	Loc2 = LaPlace(T2);
+	printf("Localisation Tas T1 : %d . %d (doit etre 1 . 1)\n", Loc1.NC, Loc1.NL);
+	printf("Localisation Tas T2 : %d . %d (doit etre 2 . 2)\n", Loc2.NC, Loc2.NL);
+	printf("\n\n");
+}
 
 void Test_CreerTasVide(){
  printf("************************Test de CreeTasVide***************************\n");
@@ -482,7 +506,9 @@ int main () {
  Test_EstCarteAvant();
  Test_TasActif();
  Test_TasEmpile();
+ Test_TasEtale();
  Test_LaHauteur();
+ Test_LaPlace();
  Test_CreerTasVide();
  Test_EchangerCarte();
  Test_BattreTas();
