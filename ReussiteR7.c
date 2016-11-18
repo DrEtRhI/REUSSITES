@@ -9,6 +9,7 @@
 
 #include "R7.h"
 #include "InteractionR7.h"
+#include "Alea.h"
 
 /* -------------------------------------------------------------------
  *      PROGRAMME PRINCIPAL AVEC MENU D'INTERACTION
@@ -21,7 +22,7 @@
 
 int main(void)
 {
-  const NBMAXT = 3;
+  const int NBMAXT = 3;
 
   CodeCommande    Commande ;
   int nbparties ;
